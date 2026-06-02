@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!--
+  Scena di gioco a strati sovrapposti (StackPane):
+    1) sfondo della stanza   2) hotspot cliccabili   3) sprite dei personaggi
+    4) HUD (titolo, uscite, comandi)   5) overlay per dialoghi/ispezioni.
+  I contenuti dinamici dei vari strati sono popolati dal controller.
+-->
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="it.unicam.cs.mpgc.rpg125947.controller.EsplorazioneController"
+           fx:id="radice" styleClass="scena-gioco">
+
+    <ImageView fx:id="sfondo" preserveRatio="false"/>
+
+    <Pane fx:id="stratoHotspot" pickOnBounds="false"/>
+    <Pane fx:id="stratoPersonaggi" pickOnBounds="false"/>
+
+    <BorderPane fx:id="hud" pickOnBounds="false">
+        <top>
+            <VBox alignment="CENTER" pickOnBounds="false">
+                <HBox alignment="CENTER" styleClass="hud-barra">
+                    <Label fx:id="nomeStanza" styleClass="hud-titolo"/>
+                </HBox>
+                <Label fx:id="notifica" styleClass="hud-notifica"/>
+                <HBox fx:id="usciteNord" alignment="CENTER" spacing="8" styleClass="hud-uscite"/>
+            </VBox>
+        </top>
+        <left>
+            <VBox fx:id="usciteOvest" alignment="CENTER" spacing="8" styleClass="hud-uscite"/>
+        </left>
+        <right>
+            <VBox fx:id="usciteEst" alignment="CENTER" spacing="8" styleClass="hud-uscite"/>
+        </right>
+        <bottom>
+            <VBox alignment="CENTER" pickOnBounds="false">
+                <HBox fx:id="usciteSud" alignment="CENTER" spacing="8" styleClass="hud-uscite"/>
+                <HBox alignment="CENTER_RIGHT" spacing="10" styleClass="hud-comandi">
+                    <Button text="Taccuino" onAction="#onTaccuino" styleClass="bottone-hud"/>
+                    <Button text="Salva" onAction="#onSalva" styleClass="bottone-hud"/>
+                    <Button text="Carica" onAction="#onCarica" styleClass="bottone-hud"/>
+                    <Button text="Formula accusa" onAction="#onAccusa" styleClass="bottone-accusa"/>
+                </HBox>
+            </VBox>
+        </bottom>
+    </BorderPane>
+
+    <StackPane fx:id="overlay" styleClass="overlay" visible="false" managed="false"/>
+</StackPane>

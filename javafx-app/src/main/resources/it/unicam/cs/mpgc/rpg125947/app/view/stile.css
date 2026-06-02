@@ -1,0 +1,434 @@
+/*
+ * ============================================================================
+ *  Design system "OBSIDIAN CASEFILE" — noir investigativo (Chiaroscuro).
+ *  Palette low-key ad alto contrasto, angoli netti (0px), tipografia a tre
+ *  livelli: EB Garamond (titoli), Courier Prime (testi/evidenze), Inter (UI).
+ *  Separazione aspetto/logica (MVC): qui solo presentazione.
+ * ============================================================================
+ */
+
+.root {
+  /* Tipografia di utilita di default (etichette UI). */
+  -fx-font-family: "Inter", "Segoe UI", "Arial", sans-serif;
+
+  /* --- Superfici (Lead & Smoke) --- */
+  -sfondo: #111316; /* background */
+  -superficie-bassa: #1a1c1f; /* surface-container-low */
+  -superficie: #1e2023; /* surface-container */
+  -superficie-alta: #282a2d; /* surface-container-high */
+  -superficie-massima: #333538; /* surface-container-highest */
+
+  /* --- Accenti --- */
+  -primario: #e6c18a; /* primary-fixed-dim (sepia/parchment) */
+  -primario-chiaro: #ffe0b5; /* primary */
+  -su-primario: #422c03; /* on-primary (testo su bottone) */
+  -neon: #dfed00; /* secondary — indizi / "Eureka" */
+  -errore: #ffb4ab; /* error */
+
+  /* --- Testo --- */
+  -testo: #e2e2e6; /* on-surface */
+  -testo-variante: #d1c5b6; /* on-surface-variant */
+  -contorno: #9a8f82; /* outline */
+  -contorno-debole: #4e453a; /* outline-variant */
+}
+
+/* ===== Schermata di creazione (sfondo noir a tutto campo) ===== */
+
+.schermata-creazione {
+  -fx-background-image: url("images/sfondo_creazione.png");
+  -fx-background-size: cover;
+  -fx-background-position: center;
+  -fx-background-repeat: no-repeat;
+}
+
+/* Vignette: scurisce i bordi per concentrare lo sguardo al centro. */
+.vignette {
+  -fx-background-color: radial-gradient(
+    center 50% 48%,
+    radius 78%,
+    transparent 45%,
+    rgba(5, 7, 11, 0.9) 100%
+  );
+}
+
+/* Contenuto appoggiato direttamente sull'ambiente: nessun riquadro. */
+.contenuto-creazione {
+  -fx-background-color: transparent;
+  -fx-padding: 40;
+}
+
+.schermata-finale {
+  -fx-background-color: linear-gradient(to bottom, #1a1c1f, #0c0e11);
+}
+
+/* ===== Tipografia di marca ===== */
+
+.titolo-gioco {
+  -fx-font-family: "EB Garamond", "Georgia", serif;
+  -fx-font-size: 52px;
+  -fx-font-weight: bold;
+  -fx-text-fill: -primario-chiaro;
+  /* Lieve "ink bleed" + stacco dallo sfondo fotografico. */
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.95), 18, 0.3, 0, 3);
+}
+
+.sottotitolo-gioco {
+  -fx-font-family: "EB Garamond", "Georgia", serif;
+  -fx-font-size: 22px;
+  -fx-font-style: italic;
+  -fx-text-fill: -testo-variante;
+}
+
+.didascalia {
+  -fx-font-family: "Courier Prime", "Courier New", monospace;
+  -fx-font-size: 14px;
+  -fx-text-fill: -contorno;
+  -fx-text-alignment: center;
+}
+
+.etichetta {
+  -fx-font-size: 12px;
+  -fx-font-weight: bold;
+  -fx-text-fill: -testo-variante;
+  -fx-padding: 14 0 0 0;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.9), 10, 0.3, 0, 1);
+}
+
+/* Input "macchina da scrivere": niente box, solo riga inferiore. */
+.campo-nome {
+  -fx-font-family: "Courier Prime", "Courier New", monospace;
+  -fx-font-size: 16px;
+  -fx-background-color: transparent;
+  -fx-background-radius: 0;
+  -fx-border-color: transparent transparent -contorno transparent;
+  -fx-border-width: 0 0 1.5 0;
+  -fx-padding: 8 2;
+  -fx-text-fill: -testo;
+  -fx-prompt-text-fill: #7c7468;
+}
+
+/* Riga che si illumina di giallo neon quando il campo e attivo. */
+.campo-nome:focused {
+  -fx-border-color: transparent transparent -neon transparent;
+}
+
+.messaggio-errore {
+  -fx-font-family: "Courier Prime", "Courier New", monospace;
+  -fx-text-fill: -errore;
+  -fx-font-size: 13px;
+}
+
+/* ===== Bottoni "The Stamp": tinta piena, angoli netti, niente glow ===== */
+
+.bottone-principale {
+  -fx-background-color: -primario;
+  -fx-text-fill: -su-primario;
+  -fx-font-size: 14px;
+  -fx-font-weight: bold;
+  -fx-padding: 13 30;
+  -fx-background-radius: 0;
+  -fx-cursor: hand;
+}
+
+/* Hover: il timbro "preme" e si scurisce, non si illumina. */
+.bottone-principale:hover {
+  -fx-background-color: derive(-primario, -12%);
+  -fx-translate-y: 1;
+}
+
+.bottone-hud,
+.bottone-uscita,
+.bottone-chiudi {
+  -fx-background-color: -superficie-alta;
+  -fx-text-fill: -testo;
+  -fx-font-size: 13px;
+  -fx-padding: 8 16;
+  -fx-background-radius: 0;
+  -fx-border-color: -contorno-debole;
+  -fx-border-radius: 0;
+  -fx-cursor: hand;
+}
+
+.bottone-hud:hover,
+.bottone-uscita:hover,
+.bottone-chiudi:hover {
+  -fx-background-color: -superficie-massima;
+  -fx-border-color: -primario;
+  -fx-translate-y: 1;
+}
+
+.bottone-accusa {
+  -fx-background-color: #93000a;
+  -fx-text-fill: #ffdad6;
+  -fx-font-size: 13px;
+  -fx-font-weight: bold;
+  -fx-padding: 8 18;
+  -fx-background-radius: 0;
+  -fx-cursor: hand;
+}
+
+.bottone-accusa:hover {
+  -fx-background-color: derive(#93000a, -10%);
+  -fx-translate-y: 1;
+}
+
+/* ===== Scena di gioco / HUD ===== */
+
+.scena-gioco {
+  -fx-background-color: #0c0e11;
+}
+
+.hud-barra {
+  -fx-padding: 12;
+}
+
+.hud-titolo {
+  -fx-font-family: "EB Garamond", "Georgia", serif;
+  -fx-font-size: 24px;
+  -fx-font-weight: bold;
+  -fx-text-fill: -primario;
+  -fx-background-color: rgba(12, 14, 17, 0.6);
+  -fx-padding: 6 22;
+  -fx-background-radius: 0;
+}
+
+.hud-notifica {
+  -fx-text-fill: -neon;
+  -fx-font-size: 12px;
+  -fx-font-weight: bold;
+  -fx-padding: 2 0;
+}
+
+.hud-uscite {
+  -fx-padding: 10;
+}
+
+.hud-comandi {
+  -fx-padding: 14;
+}
+
+/* ===== Sprite dei personaggi ===== */
+
+.sprite-personaggio {
+  -fx-padding: 4;
+}
+
+.sprite-personaggio:hover {
+  -fx-effect: dropshadow(gaussian, rgba(223, 237, 0, 0.85), 20, 0.4, 0, 0);
+}
+
+.nome-personaggio {
+  -fx-text-fill: -testo;
+  -fx-font-size: 13px;
+  -fx-font-weight: bold;
+  -fx-background-color: rgba(12, 14, 17, 0.75);
+  -fx-padding: 3 10;
+  -fx-background-radius: 0;
+}
+
+/* ===== Hotspot ispezionabili: solo l'icona-lente, senza riquadro ===== */
+
+.hotspot {
+  -fx-background-color: transparent;
+  -fx-background-insets: 0;
+  -fx-border-color: transparent;
+  -fx-padding: 0;
+  -fx-opacity: 0.85;
+}
+
+/* Hover: la lente si illumina leggermente e ingrandisce, senza box. */
+.hotspot:hover {
+  -fx-background-color: transparent;
+  -fx-opacity: 1;
+  -fx-scale-x: 1.12;
+  -fx-scale-y: 1.12;
+  -fx-effect: dropshadow(gaussian, rgba(230, 193, 138, 0.65), 14, 0.35, 0, 0);
+}
+
+/* ===== Overlay e pannelli (case file isolato dallo sfondo) ===== */
+
+.overlay {
+  -fx-background-color: rgba(6, 8, 11, 0.82);
+}
+
+.pannello-dialogo,
+.pannello-ispezione {
+  -fx-background-color: -superficie;
+  -fx-background-radius: 0;
+  -fx-border-color: -contorno-debole;
+  -fx-border-radius: 0;
+  -fx-border-width: 1;
+  -fx-padding: 24;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 28, 0.2, 0, 8);
+}
+
+.nome-dialogo {
+  -fx-font-family: "EB Garamond", "Georgia", serif;
+  -fx-text-fill: -primario;
+  -fx-font-size: 18px;
+  -fx-font-weight: bold;
+}
+
+.testo-dialogo,
+.testo-ispezione {
+  -fx-font-family: "Courier Prime", "Courier New", monospace;
+  -fx-text-fill: -testo;
+  -fx-font-size: 15px;
+}
+
+.titolo-ispezione {
+  -fx-font-family: "EB Garamond", "Georgia", serif;
+  -fx-text-fill: -primario;
+  -fx-font-size: 20px;
+  -fx-font-weight: bold;
+}
+
+.domanda-dialogo {
+  -fx-font-family: "Courier Prime", "Courier New", monospace;
+  -fx-background-color: -superficie-alta;
+  -fx-text-fill: -testo;
+  -fx-font-size: 14px;
+  -fx-padding: 9 16;
+  -fx-background-radius: 0;
+  -fx-cursor: hand;
+  -fx-alignment: center-left;
+}
+
+.domanda-dialogo:hover {
+  -fx-background-color: -superficie-massima;
+  -fx-translate-y: 1;
+}
+
+/* Indizio scoperto: il giallo neon della verita. */
+.feedback-indizio {
+  -fx-font-family: "Courier Prime", "Courier New", monospace;
+  -fx-text-fill: -neon;
+  -fx-font-size: 13px;
+  -fx-font-style: italic;
+}
+
+/* ===== Schermata di accusa ===== */
+
+.schermata-accusa {
+  -fx-background-color: linear-gradient(to bottom, #1a1c1f, #0c0e11);
+}
+
+.titolo-schermata {
+  -fx-font-family: "EB Garamond", "Georgia", serif;
+  -fx-font-size: 32px;
+  -fx-font-weight: bold;
+  -fx-text-fill: -primario;
+  -fx-padding: 0 0 16 0;
+}
+
+.accusa-sezione {
+  -fx-background-color: -superficie;
+  -fx-background-radius: 0;
+  -fx-border-color: -contorno-debole;
+  -fx-border-width: 1;
+  -fx-padding: 18;
+}
+
+.sezione-titolo {
+  -fx-font-family: "EB Garamond", "Georgia", serif;
+  -fx-font-size: 18px;
+  -fx-font-weight: bold;
+  -fx-text-fill: -testo-variante;
+}
+
+.accusa-scroll {
+  -fx-background-color: transparent;
+  -fx-background: transparent;
+}
+
+.scelta-sospettato,
+.scelta-prova {
+  -fx-font-family: "Courier Prime", "Courier New", monospace;
+  -fx-text-fill: -testo;
+  -fx-font-size: 14px;
+}
+
+/* ===== Schermata finale ===== */
+
+.finale-titolo {
+  -fx-font-family: "EB Garamond", "Georgia", serif;
+  -fx-font-size: 44px;
+  -fx-font-weight: bold;
+}
+
+.finale-successo {
+  -fx-text-fill: -neon;
+}
+
+.finale-fallimento {
+  -fx-text-fill: -errore;
+}
+
+.finale-testo {
+  -fx-font-family: "Courier Prime", "Courier New", monospace;
+  -fx-font-size: 16px;
+  -fx-text-fill: -testo;
+  -fx-text-alignment: center;
+  -fx-line-spacing: 4;
+}
+
+/* ===== Taccuino (dossier di carta) ===== */
+
+.taccuino-contenuto {
+  -fx-background-color: #1a1c1f;
+}
+
+.taccuino-card {
+  -fx-background-color: -superficie-alta;
+  -fx-background-radius: 0;
+  -fx-padding: 12 14;
+  -fx-border-color: -contorno-debole;
+  -fx-border-radius: 0;
+  -fx-border-width: 1;
+}
+
+.taccuino-card-titolo {
+  -fx-font-family: "EB Garamond", "Georgia", serif;
+  -fx-text-fill: -primario;
+  -fx-font-size: 15px;
+  -fx-font-weight: bold;
+}
+
+.taccuino-card-corpo {
+  -fx-font-family: "Courier Prime", "Courier New", monospace;
+  -fx-text-fill: -testo;
+  -fx-font-size: 13px;
+}
+
+.taccuino-fonte {
+  -fx-font-family: "EB Garamond", "Georgia", serif;
+  -fx-text-fill: -testo-variante;
+  -fx-font-size: 16px;
+  -fx-font-weight: bold;
+  -fx-padding: 8 0 2 0;
+}
+
+.taccuino-vuoto {
+  -fx-font-family: "Courier Prime", "Courier New", monospace;
+  -fx-text-fill: -contorno;
+  -fx-font-style: italic;
+  -fx-font-size: 14px;
+}
+
+/* Schede stile "Case File Tabs": la scheda attiva passa al tono sepia. */
+.tab-pane .tab-header-area .tab {
+  -fx-background-color: -superficie-alta;
+  -fx-background-radius: 0;
+}
+
+.tab-pane .tab .tab-label {
+  -fx-text-fill: -testo;
+}
+
+.tab-pane .tab:selected {
+  -fx-background-color: -primario;
+}
+
+.tab-pane .tab:selected .tab-label {
+  -fx-text-fill: -su-primario;
+}

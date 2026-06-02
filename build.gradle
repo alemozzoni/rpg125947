@@ -1,0 +1,34 @@
+/*
+ * build.gradle radice.
+ *
+ * Configurazione comune a tutti i sottoprogetti. I dettagli specifici (plugin
+ * application/javafx, dipendenze) vivono nei build.gradle dei singoli moduli
+ * per non accoppiare il core alla piattaforma di presentazione.
+ */
+subprojects {
+    apply plugin: 'java'
+
+    repositories {
+        mavenCentral()
+    }
+
+    // Toolchain Java 25: disaccoppia la JVM che esegue Gradle dalla JVM usata
+    // per compilare ed eseguire il progetto. Garantisce la riproducibilita
+    // richiesta dalla consegna ("eseguibile da qualsiasi computer").
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(25)
+        }
+    }
+
+    // Testing standard del corso: JUnit 6 (Jupiter).
+    dependencies {
+        testImplementation(platform('org.junit:junit-bom:6.0.3'))
+        testImplementation 'org.junit.jupiter:junit-jupiter'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    }
+
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
+}

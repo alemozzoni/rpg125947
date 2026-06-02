@@ -1,0 +1,24 @@
+/*
+ * settings.gradle — definisce la STRUTTURA della build multi-progetto.
+ *
+ * La separazione in due moduli realizza il requisito di estendibilita
+ * multi-dispositivo richiesto dalla consegna: il modulo `core` contiene il
+ * dominio e la logica di gioco ed e completamente indipendente dalla
+ * piattaforma (non importa nulla di JavaFX); il modulo `javafx-app` e il
+ * front-end desktop e dipende da `core`. Un futuro front-end mobile o web
+ * potra riusare `core` senza modifiche (Dependency Inversion Principle).
+ */
+/*
+ * Il foojay-resolver permette a Gradle di scaricare automaticamente la
+ * toolchain Java 25 se non gia presente sulla macchina: cosi `./gradlew build`
+ * funziona "da qualsiasi computer" come richiesto dalla consegna.
+ */
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.9.0'
+}
+
+rootProject.name = 'delitto-al-museo'
+
+include('core')        // modello + logica + persistenza astratta: NESSUNA dipendenza da JavaFX
+include('javafx-app')  // front-end JavaFX desktop (dipende da core)
+// Estensioni future: include('mobile-app'), include('web-app') — riusano 'core'

@@ -1,0 +1,27 @@
+/*
+ * Modulo `javafx-app`: front-end desktop JavaFX.
+ *
+ * Dipende dal modulo `core` per il dominio e la logica. Il plugin `application`
+ * fornisce il task `run`; il plugin `org.openjfx.javafxplugin` gestisce
+ * automaticamente il module-path delle librerie JavaFX. Cosi i due soli comandi
+ * richiesti dalla consegna bastano: `./gradlew build` e `./gradlew run`.
+ */
+plugins {
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+dependencies {
+    implementation project(':core')
+}
+
+javafx {
+    version = '24.0.1'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+application {
+    // Punto di ingresso: un Launcher separato dall'Application evita l'errore
+    // "JavaFX runtime components are missing" in scenari di avvio non modulari.
+    mainClass = 'it.unicam.cs.mpgc.rpg125947.app.Launcher'
+}

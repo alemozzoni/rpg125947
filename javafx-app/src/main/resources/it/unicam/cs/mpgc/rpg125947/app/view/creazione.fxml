@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!--
+  Schermata iniziale "Obsidian Casefile": lo sfondo noir (museo di notte) e
+  impostato via CSS sulla classe .schermata-creazione. Sopra, una vignette
+  scurisce i bordi per concentrare lo sguardo al centro (Chiaroscuro); titolo,
+  campo nome e bottone appoggiano direttamente sull'ambiente, senza riquadro.
+-->
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="it.unicam.cs.mpgc.rpg125947.controller.CreazioneController"
+           styleClass="schermata-creazione">
+
+    <!-- Vignette: overlay che scurisce i bordi, trasparente ai click. -->
+    <Region styleClass="vignette" mouseTransparent="true"/>
+
+    <VBox alignment="CENTER" spacing="20" styleClass="contenuto-creazione" maxWidth="860">
+        <!-- minWidth=-Infinity: il titolo usa sempre la larghezza preferita,
+             senza mai venire troncato con i puntini di sospensione. -->
+        <Label text="DELITTO AL MUSEO" styleClass="titolo-gioco" minWidth="-Infinity"/>
+        <Label text="Inserisci il nome dell'investigatore" styleClass="etichetta"/>
+        <TextField fx:id="campoNome" promptText="Es. Sherlock" maxWidth="320" styleClass="campo-nome"/>
+        <Button fx:id="inizia" text="INIZIA A GIOCARE" onAction="#onInizia" styleClass="bottone-principale"/>
+        <Label fx:id="messaggioErrore" styleClass="messaggio-errore" wrapText="true" maxWidth="440"/>
+    </VBox>
+</StackPane>

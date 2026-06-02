@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Definizione dati del caso "Delitto al Museo della Computazione".
+
+  Tutto il contenuto del gioco (stanze, personaggi, dialoghi, indizi e soluzione)
+  vive qui, separato dal codice: aggiungere o modificare un caso non richiede
+  ricompilare nulla, basta un nuovo XML conforme a scenario.xsd (Open/Closed).
+-->
+<caso titolo="Delitto al Museo della Computazione" stanzaIniziale="atrio">
+
+    <descrizione>Notte dell'inaugurazione della nuova ala del Museo della Computazione di Camerino. Il direttore viene trovato senza vita accanto al pezzo di punta. Sta a te scoprire chi e stato.</descrizione>
+    <vittima>Dott. Aldo Renzi, direttore e curatore capo del museo, trovato senza vita nella Sala dei Linguaggi intorno alle 21:40.</vittima>
+
+    <!-- ===== Catalogo centrale degli indizi (riferiti per id altrove) ===== -->
+    <indizi>
+        <indizio id="anacronismo" nome="Anacronismo nel manoscritto" tipo="FISICO">Il manoscritto attribuito a Von Neumann (1945) cita il Teorema di Bohm-Jacopini, formulato solo nel 1966: un anacronismo che ne prova la contraffazione.</indizio>
+        <indizio id="timeline" nome="Cronologia dei linguaggi" tipo="DOCUMENTALE">La timeline esposta data il FORTRAN al 1957, il Teorema di Bohm-Jacopini al 1966 e Simula al 1967: date utili a smascherare l'anacronismo del manoscritto.</indizio>
+        <indizio id="log_badge" nome="Log del badge ore 21:38" tipo="DOCUMENTALE">Il registro elettronico mostra che il badge di Beatrice Lovato ha aperto la Sala dei Linguaggi alle 21:38, in contraddizione con il suo alibi.</indizio>
+        <indizio id="integrita_hash" nome="Integrita del registro" tipo="DOCUMENTALE">I record del log sono concatenati da hash crittografici come i commit di Git: il registro e a prova di manomissione, dunque attendibile. Questo scagiona il tecnico Marco.</indizio>
+        <indizio id="perizia" nome="Perizia del direttore (movente)" tipo="DOCUMENTALE">La perizia tecnica annotata dal dott. Renzi documenta i suoi dubbi sull'autenticita del manoscritto: il movente del delitto.</indizio>
+        <indizio id="chiave_ufficio" nome="Chiave dell'ufficio" tipo="FISICO">La chiave dell'Ufficio del Direttore, consegnata dalla guardia notturna.</indizio>
+        <indizio id="cross_check" nome="Testimonianze convergenti" tipo="TESTIMONIALE">Guardia e stagista collocano in modo indipendente Beatrice lontano dalla caffetteria intorno alle 21:38: una verifica incrociata.</indizio>
+        <indizio id="alibi_elena" nome="Alibi di Elena confermato" tipo="TESTIMONIALE">L'alibi della vice-curatrice (videochiamata con Roma) e confermato dal timestamp della chiamata: falsa pista.</indizio>
+    </indizi>
+
+    <!-- ===== Stanze del museo ===== -->
+    <stanze>
+
+        <stanza id="atrio" nome="Atrio del Museo" sfondo="atrio.png">
+            <uscite>
+                <uscita verso="sala_linguaggi" etichetta="Sala dei Linguaggi" direzione="EST"/>
+            </uscite>
+            <hotspots>
+                <hotspot id="planimetria" nome="Planimetria" x="0.18" y="0.55">La planimetria del museo. Da qui parte il percorso espositivo verso la Sala dei Linguaggi.</hotspot>
+                <hotspot id="biglietteria" nome="Biglietteria" x="0.82" y="0.5">La biglietteria, deserta a quest'ora della notte.</hotspot>
+            </hotspots>
+            <personaggi>
+                <personaggio nome="Tommaso Greco" ruolo="Guardia notturna" sprite="tommaso.png" x="0.62" y="0.62" scala="1.35"
+                             sospettato="true"
+                             movente="Debiti personali; si teme un suo coinvolgimento in un furto"
+                             alibi="Stavo facendo il giro di ronda">
+                    <dialogo battutaIniziale="Salve, investigatore. Brutta nottata... il direttore... non riesco a crederci.">
+                        <opzione domanda="Dov'era al momento del delitto?">
+                            <testimonianza>Giro di ronda, come ogni notte. Ho sentito un trambusto verso la Sala dei Linguaggi, ma sono arrivato troppo tardi.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Mi serve accedere all'Ufficio del Direttore.">
+                            <testimonianza indizio="chiave_ufficio">Tenga, questa e la chiave dell'ufficio. La apra solo lei: io non voglio altri guai.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Ha visto qualcuno muoversi stanotte?">
+                            <testimonianza>La signora Lovato andava e veniva dalla caffetteria. Nervosa. Ma non sta a me giudicare.</testimonianza>
+                        </opzione>
+                    </dialogo>
+                </personaggio>
+            </personaggi>
+        </stanza>
+
+        <stanza id="sala_linguaggi" nome="Sala dei Linguaggi" sfondo="sala_linguaggi.png">
+            <uscite>
+                <uscita verso="atrio" etichetta="Atrio" direzione="OVEST"/>
+                <uscita verso="foyer" etichetta="Caffetteria" direzione="SUD"/>
+                <uscita verso="sala_server" etichetta="Sala Server" direzione="NORD"/>
+                <uscita verso="sala_oo" etichetta="Sala OOP" direzione="EST"/>
+            </uscite>
+            <hotspots>
+                <hotspot id="teca" nome="Teca del Manoscritto" x="0.32" y="0.45" indizio="anacronismo">La teca del Manoscritto di Von Neumann. Leggendo con attenzione, il testo datato 1945 cita il Teorema di Bohm-Jacopini... del 1966.</hotspot>
+                <hotspot id="timeline" nome="Timeline dei linguaggi" x="0.66" y="0.4" indizio="timeline">La cronologia dei linguaggi esposta: FORTRAN 1957, Teorema di Bohm-Jacopini 1966, Simula 1967. Date inequivocabili.</hotspot>
+                <hotspot id="corpo" nome="Scena del crimine" x="0.5" y="0.72">Il punto in cui e stato rinvenuto il dott. Renzi. Accanto, il piedistallo di una targa premio in vetro, ora mancante.</hotspot>
+            </hotspots>
+            <personaggi>
+                <personaggio nome="Elena Bauer" ruolo="Vice-curatrice" sprite="elena.png" x="0.8" y="0.55"
+                             sospettato="true"
+                             movente="Ambizione: il direttore le bloccava la promozione a curatrice"
+                             alibi="Ero in ufficio in videochiamata a preparare il discorso">
+                    <dialogo battutaIniziale="Investigatore. E una tragedia. Il dottor Renzi era esigente, ma non meritava tutto questo.">
+                        <opzione domanda="Dov'era alle 21:40?">
+                            <testimonianza indizio="alibi_elena">In videochiamata con la sede di Roma per il discorso. Resta il registro della chiamata, con gli orari: puo verificarlo quando vuole.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Aveva dissapori con il direttore?">
+                            <testimonianza>Non lo nego: mi teneva ferma da anni. Ma da qui a ucciderlo... no. Guardi piuttosto chi ha 'donato' quel manoscritto.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Cosa pensa del manoscritto?">
+                            <testimonianza>Il dottore aveva dubbi seri. Ripeteva che le date 'non tornavano'. Voleva un confronto, proprio stasera.</testimonianza>
+                        </opzione>
+                    </dialogo>
+                </personaggio>
+            </personaggi>
+        </stanza>
+
+        <stanza id="foyer" nome="Caffetteria" sfondo="foyer.png">
+            <uscite>
+                <uscita verso="sala_linguaggi" etichetta="Sala dei Linguaggi" direzione="NORD"/>
+                <uscita verso="ufficio" etichetta="Ufficio del Direttore" direzione="EST"/>
+            </uscite>
+            <hotspots>
+                <hotspot id="buffet" nome="Buffet dell'inaugurazione" x="0.2" y="0.62">Il buffet della serata: calici mezzi pieni, tartine intatte. La festa si e interrotta di colpo.</hotspot>
+            </hotspots>
+            <personaggi>
+                <personaggio nome="Beatrice Lovato" ruolo="Sponsor e mecenate" sprite="beatrice.png" x="0.4" y="0.66"
+                             sospettato="true"
+                             movente="Il manoscritto da lei donato e un falso e il direttore stava per smascherarla, con rovina economica e d'immagine"
+                             alibi="Sono rimasta nel Foyer tra gli ospiti tutta la sera">
+                    <dialogo battutaIniziale="Oh, l'investigatore. Che serata rovinata. Dono un pezzo da museo e mi ritrovo in mezzo a uno scandalo simile.">
+                        <opzione domanda="Dove si trovava alle 21:38?">
+                            <testimonianza>Qui nella caffetteria, ovviamente, tra gli ospiti. Non mi sono mai allontanata, nemmeno un minuto.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Mi parli del manoscritto.">
+                            <testimonianza>Autentico, glielo assicuro. Acquistato da un collezionista insospettabile. I dubbi del dottor Renzi erano del tutto infondati.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Aveva discusso con il direttore?">
+                            <testimonianza>Un confronto tecnico, nulla di piu. Era teso, voleva persino annullare l'inaugurazione. Una follia.</testimonianza>
+                        </opzione>
+                    </dialogo>
+                </personaggio>
+                <personaggio nome="Giulia Ferri" ruolo="Stagista di sala" sprite="giulia.png" x="0.58" y="0.7" scala="1.15"
+                             sospettato="false">
+                    <dialogo battutaIniziale="S-salve. Sono solo la stagista, stavo riordinando qui in caffetteria...">
+                        <opzione domanda="Hai notato qualcosa di strano?">
+                            <testimonianza indizio="cross_check">La signora Lovato e uscita dalla caffetteria poco dopo le 21:30 ed e tornata agitata una decina di minuti dopo. L'ho segnato perche dovevo registrare le presenze.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Conoscevi il direttore?">
+                            <testimonianza>Poco. Ma quel pomeriggio l'ho sentito al telefono parlare di 'date che non quadrano' e di una 'perizia'.</testimonianza>
+                        </opzione>
+                    </dialogo>
+                </personaggio>
+            </personaggi>
+        </stanza>
+
+        <stanza id="sala_oo" nome="Sala dell'Object-Orientation" sfondo="sala_oo.png">
+            <uscite>
+                <uscita verso="sala_linguaggi" etichetta="Sala dei Linguaggi" direzione="OVEST"/>
+            </uscite>
+            <hotspots>
+                <hotspot id="simula" nome="Vetrina Simula e Smalltalk" x="0.4" y="0.5">Vetrina su Simula 67 e Smalltalk: le origini della programmazione a oggetti. Affascinante, ma nulla di sospetto.</hotspot>
+                <hotspot id="finestra_oo" nome="Finestra sul chiostro" x="0.82" y="0.45">Una finestra socchiusa sul chiostro. Nessun segno di effrazione: nessuno e entrato da qui.</hotspot>
+            </hotspots>
+        </stanza>
+
+        <stanza id="sala_server" nome="Sala Server e Archivio Digitale" sfondo="sala_server.png">
+            <uscite>
+                <uscita verso="sala_linguaggi" etichetta="Sala dei Linguaggi" direzione="SUD"/>
+            </uscite>
+            <hotspots>
+                <hotspot id="terminale" nome="Terminale dei registri" x="0.52" y="0.5" indizio="log_badge">Il terminale dei registri di accesso. Filtrando gli eventi del badge 'B. Lovato': APERTURA Sala dei Linguaggi, ore 21:38.</hotspot>
+            </hotspots>
+            <personaggi>
+                <personaggio nome="Marco Sartori" ruolo="Custode e tecnico di manutenzione" sprite="marco.png" x="0.3" y="0.6" scala="1.6"
+                             sospettato="true"
+                             movente="Il direttore sospettava manomissioni nei registri digitali"
+                             alibi="Ero nella Sala Server a sistemare i log">
+                    <dialogo battutaIniziale="Investigatore. Se e qui per i log, sono in ordine. Anzi, sono blindati.">
+                        <opzione domanda="I registri possono essere falsificati?">
+                            <testimonianza indizio="integrita_hash">Impossibile alterarli senza farsi scoprire: ogni record include l'hash del precedente, come i commit di Git. Cambi un dato e salta l'intera catena. Quindi cio che legge li' e vero.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Cosa dicono i log di stanotte?">
+                            <testimonianza>Tutti gli accessi sono tracciati per badge. Il sistema non mente: controlli pure l'orario di ogni apertura, al terminale.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Lei dov'era?">
+                            <testimonianza>Qui, a monitorare. La mia postazione registra ogni comando che impartisco: sono coperto.</testimonianza>
+                        </opzione>
+                    </dialogo>
+                </personaggio>
+            </personaggi>
+        </stanza>
+
+        <stanza id="ufficio" nome="Ufficio del Direttore" sfondo="ufficio.png">
+            <chiave indizio="chiave_ufficio"/>
+            <uscite>
+                <uscita verso="foyer" etichetta="Caffetteria" direzione="OVEST"/>
+            </uscite>
+            <hotspots>
+                <hotspot id="scrivania" nome="Scrivania del direttore" x="0.5" y="0.55" indizio="perizia">Sulla scrivania, una perizia tecnica annotata di pugno dal direttore: 'Manoscritto Lovato: anacronismo evidente, databile post-1966. Falso. Confrontare stasera.' Ecco il movente.</hotspot>
+                <hotspot id="libreria" nome="Libreria" x="0.15" y="0.4">Una libreria fitta di volumi sulla storia del calcolo. Un dettaglio stride: dal piedistallo manca la targa premio in vetro.</hotspot>
+            </hotspots>
+        </stanza>
+
+    </stanze>
+
+    <!-- ===== Soluzione del caso ===== -->
+    <soluzione colpevole="Beatrice Lovato">
+        <indizioDecisivo ref="anacronismo"/>
+        <indizioDecisivo ref="log_badge"/>
+        <indizioDecisivo ref="perizia"/>
+        <narrazione>Caso risolto. Il Manoscritto di Von Neumann donato da Beatrice Lovato era un falso: l'anacronismo del Teorema di Bohm-Jacopini (1966) in un testo datato 1945 ne tradisce la contraffazione. La perizia del dott. Renzi prova che lui lo sapeva e l'aveva convocata per un confronto. Il log degli accessi, reso inalterabile dalla catena di hash, colloca il badge di Beatrice nella Sala dei Linguaggi alle 21:38, smentendone l'alibi. Messa alle strette, lo ha colpito con la targa premio in vetro per poi rientrare nella caffetteria. Le testimonianze di Tommaso e Giulia convergono. Beatrice Lovato e in arresto.</narrazione>
+    </soluzione>
+
+</caso>

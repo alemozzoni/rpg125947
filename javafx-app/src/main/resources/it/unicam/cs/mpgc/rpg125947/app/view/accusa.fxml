@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="it.unicam.cs.mpgc.rpg125947.controller.AccusaController"
+            styleClass="schermata-accusa">
+    <padding>
+        <Insets top="28" right="36" bottom="24" left="36"/>
+    </padding>
+    <top>
+        <Label text="FORMULA LA TUA ACCUSA" styleClass="titolo-schermata"/>
+    </top>
+    <center>
+        <HBox spacing="28" styleClass="accusa-colonne">
+            <VBox spacing="12" styleClass="accusa-sezione" HBox.hgrow="ALWAYS">
+                <Label text="Chi e il colpevole?" styleClass="sezione-titolo"/>
+                <VBox fx:id="contenitoreSospettati" spacing="8"/>
+            </VBox>
+            <VBox spacing="12" styleClass="accusa-sezione" HBox.hgrow="ALWAYS">
+                <Label text="Quali prove porti a supporto?" styleClass="sezione-titolo"/>
+                <ScrollPane fitToWidth="true" prefHeight="360" styleClass="accusa-scroll">
+                    <VBox fx:id="contenitoreProve" spacing="6"/>
+                </ScrollPane>
+            </VBox>
+        </HBox>
+    </center>
+    <bottom>
+        <VBox spacing="10" styleClass="accusa-comandi">
+            <Label fx:id="messaggio" styleClass="messaggio-errore" wrapText="true"/>
+            <HBox spacing="12" alignment="CENTER_RIGHT">
+                <Button text="Annulla" onAction="#onAnnulla" styleClass="bottone-hud"/>
+                <Button text="Formula l'accusa" onAction="#onConferma" styleClass="bottone-principale"/>
+            </HBox>
+        </VBox>
+    </bottom>
+</BorderPane>

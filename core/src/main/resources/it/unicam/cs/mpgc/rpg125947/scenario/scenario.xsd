@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Schema XSD dello scenario di gioco.
+
+  Definisce la struttura VALIDA di un caso: vincola tipi, attributi obbligatori,
+  enumerazioni (tipo indizio, direzione uscita) e gli intervalli delle coordinate
+  [0,1]. Il caricamento rifiuta qualunque caso.xml non conforme a questo schema,
+  garantendo che il dominio riceva sempre dati ben formati E validi.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+    <!-- ===== Tipi semplici riusabili ===== -->
+
+    <xs:simpleType name="TipoIndizio">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="FISICO"/>
+            <xs:enumeration value="TESTIMONIALE"/>
+            <xs:enumeration value="DOCUMENTALE"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Direzione">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="NORD"/>
+            <xs:enumeration value="SUD"/>
+            <xs:enumeration value="EST"/>
+            <xs:enumeration value="OVEST"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- frazione delle dimensioni della scena: deve stare in [0,1] -->
+    <xs:simpleType name="Frazione">
+        <xs:restriction base="xs:double">
+            <xs:minInclusive value="0.0"/>
+            <xs:maxInclusive value="1.0"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="StringaNonVuota">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- fattore di scala dello sprite: deve essere positivo -->
+    <xs:simpleType name="FattoreScala">
+        <xs:restriction base="xs:double">
+            <xs:minExclusive value="0.0"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- ===== Elementi con contenuto testuale + attributi ===== -->
+
+    <xs:complexType name="Indizio">
+        <xs:simpleContent>
+            <xs:extension base="StringaNonVuota">
+                <xs:attribute name="id" type="StringaNonVuota" use="required"/>
+                <xs:attribute name="nome" type="StringaNonVuota" use="required"/>
+                <xs:attribute name="tipo" type="TipoIndizio" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="Hotspot">
+        <xs:simpleContent>
+            <xs:extension base="StringaNonVuota">
+                <xs:attribute name="id" type="StringaNonVuota" use="required"/>
+                <xs:attribute name="nome" type="StringaNonVuota" use="required"/>
+                <xs:attribute name="x" type="Frazione" use="required"/>
+                <xs:attribute name="y" type="Frazione" use="required"/>
+                <!-- id dell'indizio rivelato; assente = hotspot solo descrittivo -->
+                <xs:attribute name="indizio" type="xs:string" use="optional"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="Testimonianza">
+        <xs:simpleContent>
+            <xs:extension base="StringaNonVuota">
+                <!-- id dell'eventuale indizio rivelato dalla testimonianza -->
+                <xs:attribute name="indizio" type="xs:string" use="optional"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <!-- ===== Dialogo ===== -->
+
+    <xs:complexType name="Opzione">
+        <xs:sequence>
+            <xs:element name="testimonianza" type="Testimonianza"/>
+        </xs:sequence>
+        <xs:attribute name="domanda" type="StringaNonVuota" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="Dialogo">
+        <xs:sequence>
+            <xs:element name="opzione" type="Opzione" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="battutaIniziale" type="StringaNonVuota" use="required"/>
+    </xs:complexType>
+
+    <!-- ===== Personaggio ===== -->
+
+    <xs:complexType name="Personaggio">
+        <xs:sequence>
+            <xs:element name="dialogo" type="Dialogo"/>
+        </xs:sequence>
+        <xs:attribute name="nome" type="StringaNonVuota" use="required"/>
+        <xs:attribute name="ruolo" type="StringaNonVuota" use="required"/>
+        <xs:attribute name="sprite" type="StringaNonVuota" use="required"/>
+        <xs:attribute name="x" type="Frazione" use="required"/>
+        <xs:attribute name="y" type="Frazione" use="required"/>
+        <!-- ingrandimento dello sprite; assente = dimensione standard (1.0) -->
+        <xs:attribute name="scala" type="FattoreScala" use="optional"/>
+        <xs:attribute name="sospettato" type="xs:boolean" use="required"/>
+        <!-- obbligatori solo concettualmente per i sospettati: il loader li richiede -->
+        <xs:attribute name="movente" type="xs:string" use="optional"/>
+        <xs:attribute name="alibi" type="xs:string" use="optional"/>
+    </xs:complexType>
+
+    <!-- ===== Stanza ===== -->
+
+    <xs:complexType name="Uscita">
+        <xs:attribute name="verso" type="StringaNonVuota" use="required"/>
+        <xs:attribute name="etichetta" type="StringaNonVuota" use="required"/>
+        <xs:attribute name="direzione" type="Direzione" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="Chiave">
+        <xs:attribute name="indizio" type="StringaNonVuota" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="Stanza">
+        <xs:sequence>
+            <xs:element name="chiave" type="Chiave" minOccurs="0"/>
+            <xs:element name="uscite" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="uscita" type="Uscita" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="hotspots" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="hotspot" type="Hotspot" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="personaggi" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="personaggio" type="Personaggio" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="StringaNonVuota" use="required"/>
+        <xs:attribute name="nome" type="StringaNonVuota" use="required"/>
+        <xs:attribute name="sfondo" type="StringaNonVuota" use="required"/>
+    </xs:complexType>
+
+    <!-- ===== Soluzione ===== -->
+
+    <xs:complexType name="IndizioDecisivo">
+        <xs:attribute name="ref" type="StringaNonVuota" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="Soluzione">
+        <xs:sequence>
+            <xs:element name="indizioDecisivo" type="IndizioDecisivo" maxOccurs="unbounded"/>
+            <xs:element name="narrazione" type="StringaNonVuota"/>
+        </xs:sequence>
+        <xs:attribute name="colpevole" type="StringaNonVuota" use="required"/>
+    </xs:complexType>
+
+    <!-- ===== Radice ===== -->
+
+    <xs:element name="caso">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="descrizione" type="StringaNonVuota"/>
+                <xs:element name="vittima" type="StringaNonVuota"/>
+                <xs:element name="indizi">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="indizio" type="Indizio" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="stanze">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="stanza" type="Stanza" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="soluzione" type="Soluzione"/>
+            </xs:sequence>
+            <xs:attribute name="titolo" type="StringaNonVuota" use="required"/>
+            <xs:attribute name="stanzaIniziale" type="StringaNonVuota" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

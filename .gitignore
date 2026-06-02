@@ -1,0 +1,30 @@
+# --- Output di build Gradle ---
+.gradle/
+build/
+**/build/
+bin/
+out/
+
+# --- IDE ---
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.project
+.classpath
+*.code-workspace
+
+# --- Sistema operativo / metadati WSL-Windows ---
+.DS_Store
+Thumbs.db
+*:Zone.Identifier
+*Zone.Identifier
+
+# --- Salvataggi di gioco generati a runtime ---
+salvataggi/
+*.save.xml
+
+# --- Backup locali del progetto ---
+RPG_backup_*.tar.gz

@@ -1,0 +1,10 @@
+/*
+ * Modulo `core`: dominio, logica di gioco e persistenza astratta.
+ *
+ * E una `java-library` PLATFORM-INDEPENDENT: non dipende da JavaFX ne da alcuna
+ * libreria di UI. La persistenza XML usa esclusivamente JAXP (DOM/SAX, XSD,
+ * XPath, Transformer), incluso nel JDK, quindi nessuna dipendenza esterna.
+ */
+plugins {
+    id 'java-library'
+}

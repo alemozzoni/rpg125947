@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Scenario deliberatamente NON valido rispetto a scenario.xsd:
+  manca l'attributo obbligatorio 'stanzaIniziale' e mancano gli elementi
+  obbligatori (vittima, indizi, stanze, soluzione). Serve a verificare che il
+  caricatore rifiuti i casi non conformi allo schema.
+-->
+<caso titolo="Caso rotto">
+    <descrizione>Questo scenario e incompleto e deve essere rifiutato dalla validazione.</descrizione>
+</caso>
