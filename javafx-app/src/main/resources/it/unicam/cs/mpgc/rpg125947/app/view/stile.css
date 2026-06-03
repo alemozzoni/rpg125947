@@ -432,3 +432,63 @@
 .tab-pane .tab:selected .tab-label {
   -fx-text-fill: -su-primario;
 }
+
+/* ===== Scheda caratteristiche (creazione + taccuino) ===== */
+
+.punti-rimanenti {
+  -fx-font-family: "Courier Prime", "Courier New", monospace;
+  -fx-text-fill: -neon;
+  -fx-font-size: 14px;
+}
+
+.scheda-attributi {
+  -fx-padding: 4 0 4 0;
+}
+
+.riga-attributo {
+  -fx-padding: 4 8 4 8;
+  -fx-background-color: rgba(12, 14, 17, 0.45);
+  -fx-border-color: -contorno-debole;
+  -fx-border-width: 0 0 1 0;
+}
+
+.attributo-nome {
+  -fx-text-fill: -testo;
+  -fx-font-size: 14px;
+}
+
+.attributo-valore {
+  -fx-font-family: "Courier Prime", "Courier New", monospace;
+  -fx-text-fill: -primario-chiaro;
+  -fx-font-size: 16px;
+  -fx-min-width: 24px;
+  -fx-alignment: center;
+}
+
+.bottone-attributo {
+  -fx-background-color: -superficie-alta;
+  -fx-text-fill: -testo;
+  -fx-font-size: 15px;
+  -fx-min-width: 32px;
+  -fx-background-radius: 0;
+  -fx-border-color: -contorno-debole;
+  -fx-border-width: 1;
+  -fx-cursor: hand;
+}
+
+.bottone-attributo:hover {
+  -fx-background-color: -superficie-massima;
+  -fx-border-color: -primario;
+}
+
+.bottone-attributo:disabled {
+  -fx-opacity: 0.4;
+}
+
+/* Esito di una prova di abilita non superata. */
+.feedback-prova-fallita {
+  -fx-font-family: "Courier Prime", "Courier New", monospace;
+  -fx-text-fill: -errore;
+  -fx-font-size: 13px;
+  -fx-font-style: italic;
+}

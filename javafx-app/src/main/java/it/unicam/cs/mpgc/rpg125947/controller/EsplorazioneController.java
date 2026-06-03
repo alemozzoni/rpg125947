@@ -5,18 +5,18 @@ import it.unicam.cs.mpgc.rpg125947.app.RisorseGrafiche;
 import it.unicam.cs.mpgc.rpg125947.app.ui.EffettoTesto;
 import it.unicam.cs.mpgc.rpg125947.app.ui.FinestraTaccuino;
 import it.unicam.cs.mpgc.rpg125947.logic.MotorePartita;
+import it.unicam.cs.mpgc.rpg125947.logic.RisultatoInterazione;
 import it.unicam.cs.mpgc.rpg125947.model.AzioneGiocatore;
 import it.unicam.cs.mpgc.rpg125947.model.Coordinata;
 import it.unicam.cs.mpgc.rpg125947.model.Hotspot;
-import it.unicam.cs.mpgc.rpg125947.model.Indizio;
 import it.unicam.cs.mpgc.rpg125947.model.Partita;
 import it.unicam.cs.mpgc.rpg125947.model.Stanza;
 import it.unicam.cs.mpgc.rpg125947.model.Uscita;
 import it.unicam.cs.mpgc.rpg125947.model.dialogo.Dialogo;
 import it.unicam.cs.mpgc.rpg125947.model.dialogo.OpzioneDialogo;
-import it.unicam.cs.mpgc.rpg125947.model.dialogo.Testimonianza;
 import it.unicam.cs.mpgc.rpg125947.model.personaggio.Personaggio;
 import it.unicam.cs.mpgc.rpg125947.model.personaggio.Sospettato;
+import it.unicam.cs.mpgc.rpg125947.model.prova.EsitoProva;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -201,7 +201,11 @@ public final class EsplorazioneController {
 
         VBox domande = new VBox(8);
         for (OpzioneDialogo opzione : dialogo.getOpzioni()) {
-            domande.getChildren().add(bottone(opzione.domanda(), "domanda-dialogo",
+            // Le domande che sono una prova di abilita mostrano l'attributo richiesto.
+            String etichetta = opzione.richiedeProva()
+                    ? "🎲 [" + opzione.attributoRichiesto().orElseThrow().etichetta() + "] " + opzione.domanda()
+                    : opzione.domanda();
+            domande.getChildren().add(bottone(etichetta, "domanda-dialogo",
                     () -> rispondi(opzione, battuta, feedback)));
         }
 
@@ -215,17 +219,23 @@ public final class EsplorazioneController {
     }
 
     private void rispondi(OpzioneDialogo opzione, Label battuta, Label feedback) {
-        Testimonianza testimonianza = opzione.risposta();
-        Optional<Indizio> rivelato = motore().raccogli(testimonianza);
-        EffettoTesto.scrivi(battuta, testimonianza.testo());
-        feedback.setText(rivelato
-                .map(i -> "Annotato nel taccuino: " + i.getNome())
-                .orElse(""));
+        RisultatoInterazione esito = motore().interroga(opzione);
+        if (esito.provaFallita()) {
+            // Prova non superata: il personaggio non rivela l'informazione.
+            EffettoTesto.scrivi(battuta, "Mmh... preferirei non parlarne. Mi dispiace.");
+            feedback.setText(componiFeedback(esito));
+            return;
+        }
+        EffettoTesto.scrivi(battuta, opzione.risposta().testo());
+        feedback.setText(componiFeedback(esito));
+        if (esito.salitoDiLivello()) {
+            notificaLivello();
+        }
     }
 
     private void ispeziona(Hotspot hotspot) {
         motore().eseguiAzione(AzioneGiocatore.ISPEZIONA);
-        Optional<Indizio> indizio = motore().ispeziona(hotspot);
+        RisultatoInterazione esito = motore().ispeziona(hotspot);
 
         Label titolo = new Label(hotspot.getNome());
         titolo.getStyleClass().add("titolo-ispezione");
@@ -238,15 +248,48 @@ public final class EsplorazioneController {
         pannello.getStyleClass().add("pannello-ispezione");
         pannello.setMaxWidth(680);
         pannello.setMaxHeight(Region.USE_PREF_SIZE);
-        indizio.ifPresent(i -> {
-            Label fb = new Label("Indizio aggiunto al taccuino: " + i.getNome());
-            fb.getStyleClass().add("feedback-indizio");
+
+        String feedback = componiFeedback(esito);
+        if (!feedback.isBlank()) {
+            Label fb = new Label(feedback);
+            fb.getStyleClass().add(esito.provaFallita() ? "feedback-prova-fallita" : "feedback-indizio");
             fb.setWrapText(true);
             pannello.getChildren().add(fb);
-        });
+        }
         pannello.getChildren().add(bottone("Chiudi", "bottone-chiudi", this::chiudiOverlay));
         mostraOverlay(pannello, Pos.CENTER, Insets.EMPTY);
         EffettoTesto.scrivi(descrizione, hotspot.getDescrizione());
+        if (esito.salitoDiLivello()) {
+            notificaLivello();
+        }
+    }
+
+    /**
+     * Compone il riscontro testuale di un'interazione: esito dell'eventuale prova,
+     * indizio scoperto ed esperienza guadagnata.
+     */
+    private String componiFeedback(RisultatoInterazione esito) {
+        StringBuilder sb = new StringBuilder();
+        esito.provaTentata().ifPresent(prova -> sb.append(descriviProva(prova)).append('\n'));
+        esito.indizioScoperto().ifPresent(indizio -> sb
+                .append("Indizio aggiunto al taccuino: ").append(indizio.getNome())
+                .append("  (+").append(esito.xpGuadagnati()).append(" PE)"));
+        if (esito.provaFallita()) {
+            sb.append("Non emerge nulla di utile: puoi riprovare quando sarai piu esperto.");
+        }
+        return sb.toString().trim();
+    }
+
+    private String descriviProva(EsitoProva prova) {
+        return "Prova di " + prova.attributo().etichetta() + ": "
+                + (prova.superata() ? "superata" : "fallita")
+                + " (" + prova.totale() + " contro " + prova.difficolta() + ")";
+    }
+
+    /** Notifica il passaggio di livello e invita a spendere i punti nel taccuino. */
+    private void notificaLivello() {
+        int livello = partita().getInvestigatore().getLivello();
+        notificaBreve("Livello " + livello + " raggiunto! Nuovi punti abilita da spendere nel Taccuino.");
     }
 
     private void mostraMessaggio(String titolo, String testo) {

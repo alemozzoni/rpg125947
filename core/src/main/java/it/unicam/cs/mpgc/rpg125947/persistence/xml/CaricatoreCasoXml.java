@@ -1,5 +1,6 @@
 package it.unicam.cs.mpgc.rpg125947.persistence.xml;
 
+import it.unicam.cs.mpgc.rpg125947.model.Attributo;
 import it.unicam.cs.mpgc.rpg125947.model.Caso;
 import it.unicam.cs.mpgc.rpg125947.model.Coordinata;
 import it.unicam.cs.mpgc.rpg125947.model.Direzione;
@@ -182,7 +183,9 @@ public final class CaricatoreCasoXml implements ScenarioLoader {
                     h.getAttribute("nome"),
                     testo(h),
                     coordinata(h),
-                    indizio));
+                    indizio,
+                    attributoOpzionale(h),
+                    difficoltaOpzionale(h)));
         }
         for (Element p : figliNidificati(stanzaEl, "personaggi", "personaggio")) {
             Personaggio personaggio = caricaPersonaggio(p);
@@ -218,7 +221,8 @@ public final class CaricatoreCasoXml implements ScenarioLoader {
         for (Element opz : figli(dialogoEl, "opzione")) {
             Element t = primoFiglio(opz, "testimonianza");
             Testimonianza testimonianza = new Testimonianza(fonte, testo(t), opzionale(t, "indizio"));
-            opzioni.add(new OpzioneDialogo(opz.getAttribute("domanda"), testimonianza));
+            opzioni.add(new OpzioneDialogo(opz.getAttribute("domanda"), testimonianza,
+                    attributoOpzionale(opz), difficoltaOpzionale(opz)));
         }
         return new Dialogo(dialogoEl.getAttribute("battutaIniziale"), opzioni);
     }
@@ -237,6 +241,18 @@ public final class CaricatoreCasoXml implements ScenarioLoader {
         return new Coordinata(
                 Double.parseDouble(el.getAttribute("x")),
                 Double.parseDouble(el.getAttribute("y")));
+    }
+
+    /** Attributo della prova di abilita; assente nello XML = nessuna prova. */
+    private static Attributo attributoOpzionale(Element el) {
+        String v = opzionale(el, "attributo");
+        return v == null ? null : Attributo.valueOf(v);
+    }
+
+    /** Difficolta della prova; assente = 0 (nessuna prova). */
+    private static int difficoltaOpzionale(Element el) {
+        String v = opzionale(el, "difficolta");
+        return v == null ? 0 : Integer.parseInt(v);
     }
 
     private static InputStream risorsa(String path) {

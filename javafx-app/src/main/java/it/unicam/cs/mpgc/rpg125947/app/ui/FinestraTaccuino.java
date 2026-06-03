@@ -1,12 +1,15 @@
 package it.unicam.cs.mpgc.rpg125947.app.ui;
 
 import it.unicam.cs.mpgc.rpg125947.app.RisorseGrafiche;
+import it.unicam.cs.mpgc.rpg125947.model.Attributo;
 import it.unicam.cs.mpgc.rpg125947.model.Indizio;
+import it.unicam.cs.mpgc.rpg125947.model.Investigatore;
 import it.unicam.cs.mpgc.rpg125947.model.Partita;
 import it.unicam.cs.mpgc.rpg125947.model.Taccuino;
 import it.unicam.cs.mpgc.rpg125947.model.dialogo.Testimonianza;
 import it.unicam.cs.mpgc.rpg125947.model.personaggio.Sospettato;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,6 +17,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -37,6 +42,7 @@ public final class FinestraTaccuino {
 
         TabPane schede = new TabPane();
         schede.getTabs().addAll(
+                scheda("Investigatore", schedaInvestigatore(partita)),
                 scheda("Indizi", schedaIndizi(taccuino)),
                 scheda("Testimonianze", schedaTestimonianze(taccuino)),
                 scheda("Sospettati", schedaSospettati(taccuino)),
@@ -60,6 +66,46 @@ public final class FinestraTaccuino {
         Tab tab = new Tab(titolo, contenuto);
         tab.setClosable(false);
         return tab;
+    }
+
+    /** Scheda personaggio: progressione e spesa dei punti abilita sugli attributi. */
+    private ScrollPane schedaInvestigatore(Partita partita) {
+        VBox contenitore = contenitore();
+        aggiornaSchedaInvestigatore(contenitore, partita);
+        return scorrevole(contenitore);
+    }
+
+    /** (Ri)popola la scheda investigatore, cosi da riflettere la spesa dei punti. */
+    private void aggiornaSchedaInvestigatore(VBox contenitore, Partita partita) {
+        Investigatore inv = partita.getInvestigatore();
+        contenitore.getChildren().clear();
+        contenitore.getChildren().add(card("Investigatore " + inv.getNome(),
+                "Livello " + inv.getLivello()
+                        + "\nEsperienza: " + inv.getEsperienza() + " / " + inv.esperienzaProssimoLivello() + " PE"
+                        + "\nPunti abilita disponibili: " + inv.getPuntiAbilita()));
+
+        for (Attributo attributo : Attributo.values()) {
+            Label nome = new Label(attributo.etichetta());
+            nome.getStyleClass().add("taccuino-card-titolo");
+            nome.setMaxWidth(Double.MAX_VALUE);
+            HBox.setHgrow(nome, Priority.ALWAYS);
+
+            Label valore = new Label(String.valueOf(inv.getAttributo(attributo)));
+            valore.getStyleClass().add("attributo-valore");
+
+            Button potenzia = new Button("+");
+            potenzia.getStyleClass().add("bottone-attributo");
+            potenzia.setDisable(inv.getPuntiAbilita() <= 0);
+            potenzia.setOnAction(e -> {
+                inv.potenzia(attributo);
+                aggiornaSchedaInvestigatore(contenitore, partita);
+            });
+
+            HBox riga = new HBox(10, nome, valore, potenzia);
+            riga.setAlignment(Pos.CENTER_LEFT);
+            riga.getStyleClass().add("taccuino-card");
+            contenitore.getChildren().add(riga);
+        }
     }
 
     private ScrollPane schedaIndizi(Taccuino taccuino) {

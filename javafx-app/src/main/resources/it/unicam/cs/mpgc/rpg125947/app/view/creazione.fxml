@@ -11,7 +11,8 @@
   Schermata iniziale "Obsidian Casefile": lo sfondo noir (museo di notte) e
   impostato via CSS sulla classe .schermata-creazione. Sopra, una vignette
   scurisce i bordi per concentrare lo sguardo al centro (Chiaroscuro); titolo,
-  campo nome e bottone appoggiano direttamente sull'ambiente, senza riquadro.
+  campo nome, scheda delle caratteristiche e bottone appoggiano direttamente
+  sull'ambiente, senza riquadro.
 -->
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
@@ -21,12 +22,19 @@
     <!-- Vignette: overlay che scurisce i bordi, trasparente ai click. -->
     <Region styleClass="vignette" mouseTransparent="true"/>
 
-    <VBox alignment="CENTER" spacing="20" styleClass="contenuto-creazione" maxWidth="860">
+    <VBox alignment="CENTER" spacing="16" styleClass="contenuto-creazione" maxWidth="860">
         <!-- minWidth=-Infinity: il titolo usa sempre la larghezza preferita,
              senza mai venire troncato con i puntini di sospensione. -->
         <Label text="DELITTO AL MUSEO" styleClass="titolo-gioco" minWidth="-Infinity"/>
         <Label text="Inserisci il nome dell'investigatore" styleClass="etichetta"/>
         <TextField fx:id="campoNome" promptText="Es. Sherlock" maxWidth="320" styleClass="campo-nome"/>
+
+        <!-- Scheda delle caratteristiche: distribuzione dei punti iniziali. -->
+        <Label text="Distribuisci i punti caratteristica" styleClass="etichetta"/>
+        <Label fx:id="puntiRimanenti" styleClass="punti-rimanenti"/>
+        <VBox fx:id="schedaAttributi" alignment="CENTER" spacing="8" maxWidth="420"
+              styleClass="scheda-attributi"/>
+
         <Button fx:id="inizia" text="INIZIA A GIOCARE" onAction="#onInizia" styleClass="bottone-principale"/>
         <Label fx:id="messaggioErrore" styleClass="messaggio-errore" wrapText="true" maxWidth="440"/>
     </VBox>

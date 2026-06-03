@@ -9,6 +9,7 @@ import it.unicam.cs.mpgc.rpg125947.model.Partita;
 import it.unicam.cs.mpgc.rpg125947.model.Stanza;
 import it.unicam.cs.mpgc.rpg125947.model.accusa.EsitoAccusa;
 import it.unicam.cs.mpgc.rpg125947.model.dialogo.Testimonianza;
+import it.unicam.cs.mpgc.rpg125947.model.interfaces.RisolutoreProva;
 import it.unicam.cs.mpgc.rpg125947.persistence.xml.CaricatoreCasoXml;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +33,9 @@ class MotorePartitaTest {
     @BeforeEach
     void avvia() {
         caso = new CaricatoreCasoXml().carica();
-        motore = new MotorePartita();
+        // Prove di abilita deterministiche: cosi il percorso di gioco e riproducibile
+        // a prescindere dal dado (lo skill check casuale e collaudato altrove).
+        motore = new MotorePartita(new ValutatoreAccusaStandard(), RisolutoreProva.sempreSuperata());
         partita = motore.nuovaPartita(new Investigatore("Investigatrice"), caso);
     }
 

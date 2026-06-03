@@ -29,6 +29,21 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <!-- caratteristica dell'investigatore messa alla prova in uno skill check -->
+    <xs:simpleType name="Attributo">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="OSSERVAZIONE"/>
+            <xs:enumeration value="INTUITO"/>
+            <xs:enumeration value="ELOQUENZA"/>
+            <xs:enumeration value="LOGICA"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- soglia di una prova di abilita: intero positivo -->
+    <xs:simpleType name="Difficolta">
+        <xs:restriction base="xs:positiveInteger"/>
+    </xs:simpleType>
+
     <!-- frazione delle dimensioni della scena: deve stare in [0,1] -->
     <xs:simpleType name="Frazione">
         <xs:restriction base="xs:double">
@@ -71,6 +86,9 @@
                 <xs:attribute name="y" type="Frazione" use="required"/>
                 <!-- id dell'indizio rivelato; assente = hotspot solo descrittivo -->
                 <xs:attribute name="indizio" type="xs:string" use="optional"/>
+                <!-- prova di abilita per scoprire l'indizio; assente = ispezione automatica -->
+                <xs:attribute name="attributo" type="Attributo" use="optional"/>
+                <xs:attribute name="difficolta" type="Difficolta" use="optional"/>
             </xs:extension>
         </xs:simpleContent>
     </xs:complexType>
@@ -91,6 +109,9 @@
             <xs:element name="testimonianza" type="Testimonianza"/>
         </xs:sequence>
         <xs:attribute name="domanda" type="StringaNonVuota" use="required"/>
+        <!-- prova di abilita per ottenere la risposta; assente = risposta sempre disponibile -->
+        <xs:attribute name="attributo" type="Attributo" use="optional"/>
+        <xs:attribute name="difficolta" type="Difficolta" use="optional"/>
     </xs:complexType>
 
     <xs:complexType name="Dialogo">

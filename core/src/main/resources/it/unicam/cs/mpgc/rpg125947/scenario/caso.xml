@@ -62,8 +62,8 @@
                 <uscita verso="sala_oo" etichetta="Sala OOP" direzione="EST"/>
             </uscite>
             <hotspots>
-                <hotspot id="teca" nome="Teca del Manoscritto" x="0.32" y="0.45" indizio="anacronismo">La teca del Manoscritto di Von Neumann. Leggendo con attenzione, il testo datato 1945 cita il Teorema di Bohm-Jacopini... del 1966.</hotspot>
-                <hotspot id="timeline" nome="Timeline dei linguaggi" x="0.66" y="0.4" indizio="timeline">La cronologia dei linguaggi esposta: FORTRAN 1957, Teorema di Bohm-Jacopini 1966, Simula 1967. Date inequivocabili.</hotspot>
+                <hotspot id="teca" nome="Teca del Manoscritto" x="0.32" y="0.45" indizio="anacronismo" attributo="OSSERVAZIONE" difficolta="12">La teca del Manoscritto di Von Neumann. Leggendo con attenzione, il testo datato 1945 cita il Teorema di Bohm-Jacopini... del 1966.</hotspot>
+                <hotspot id="timeline" nome="Timeline dei linguaggi" x="0.66" y="0.4" indizio="timeline" attributo="OSSERVAZIONE" difficolta="10">La cronologia dei linguaggi esposta: FORTRAN 1957, Teorema di Bohm-Jacopini 1966, Simula 1967. Date inequivocabili.</hotspot>
                 <hotspot id="corpo" nome="Scena del crimine" x="0.5" y="0.72">Il punto in cui e stato rinvenuto il dott. Renzi. Accanto, il piedistallo di una targa premio in vetro, ora mancante.</hotspot>
             </hotspots>
             <personaggi>
@@ -114,7 +114,7 @@
                 <personaggio nome="Giulia Ferri" ruolo="Stagista di sala" sprite="giulia.png" x="0.58" y="0.7" scala="1.15"
                              sospettato="false">
                     <dialogo battutaIniziale="S-salve. Sono solo la stagista, stavo riordinando qui in caffetteria...">
-                        <opzione domanda="Hai notato qualcosa di strano?">
+                        <opzione domanda="Hai notato qualcosa di strano?" attributo="ELOQUENZA" difficolta="11">
                             <testimonianza indizio="cross_check">La signora Lovato e uscita dalla caffetteria poco dopo le 21:30 ed e tornata agitata una decina di minuti dopo. L'ho segnato perche dovevo registrare le presenze.</testimonianza>
                         </opzione>
                         <opzione domanda="Conoscevi il direttore?">
@@ -140,7 +140,7 @@
                 <uscita verso="sala_linguaggi" etichetta="Sala dei Linguaggi" direzione="SUD"/>
             </uscite>
             <hotspots>
-                <hotspot id="terminale" nome="Terminale dei registri" x="0.52" y="0.5" indizio="log_badge">Il terminale dei registri di accesso. Filtrando gli eventi del badge 'B. Lovato': APERTURA Sala dei Linguaggi, ore 21:38.</hotspot>
+                <hotspot id="terminale" nome="Terminale dei registri" x="0.52" y="0.5" indizio="log_badge" attributo="LOGICA" difficolta="13">Il terminale dei registri di accesso. Filtrando gli eventi del badge 'B. Lovato': APERTURA Sala dei Linguaggi, ore 21:38.</hotspot>
             </hotspots>
             <personaggi>
                 <personaggio nome="Marco Sartori" ruolo="Custode e tecnico di manutenzione" sprite="marco.png" x="0.3" y="0.6" scala="1.6"
@@ -148,7 +148,7 @@
                              movente="Il direttore sospettava manomissioni nei registri digitali"
                              alibi="Ero nella Sala Server a sistemare i log">
                     <dialogo battutaIniziale="Investigatore. Se e qui per i log, sono in ordine. Anzi, sono blindati.">
-                        <opzione domanda="I registri possono essere falsificati?">
+                        <opzione domanda="I registri possono essere falsificati?" attributo="LOGICA" difficolta="12">
                             <testimonianza indizio="integrita_hash">Impossibile alterarli senza farsi scoprire: ogni record include l'hash del precedente, come i commit di Git. Cambi un dato e salta l'intera catena. Quindi cio che legge li' e vero.</testimonianza>
                         </opzione>
                         <opzione domanda="Cosa dicono i log di stanotte?">
@@ -168,7 +168,7 @@
                 <uscita verso="foyer" etichetta="Caffetteria" direzione="OVEST"/>
             </uscite>
             <hotspots>
-                <hotspot id="scrivania" nome="Scrivania del direttore" x="0.5" y="0.55" indizio="perizia">Sulla scrivania, una perizia tecnica annotata di pugno dal direttore: 'Manoscritto Lovato: anacronismo evidente, databile post-1966. Falso. Confrontare stasera.' Ecco il movente.</hotspot>
+                <hotspot id="scrivania" nome="Scrivania del direttore" x="0.5" y="0.55" indizio="perizia" attributo="INTUITO" difficolta="12">Sulla scrivania, una perizia tecnica annotata di pugno dal direttore: 'Manoscritto Lovato: anacronismo evidente, databile post-1966. Falso. Confrontare stasera.' Ecco il movente.</hotspot>
                 <hotspot id="libreria" nome="Libreria" x="0.15" y="0.4">Una libreria fitta di volumi sulla storia del calcolo. Un dettaglio stride: dal piedistallo manca la targa premio in vetro.</hotspot>
             </hotspots>
         </stanza>

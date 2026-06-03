@@ -1,7 +1,7 @@
 # 🕵️ Delitto al Museo della Computazione
 
 Gioco di ruolo investigativo (**murder mystery RPG**) con interfaccia grafica, scritto in **Java 25** con **JavaFX**.
-Il giocatore veste i panni di un investigatore che deve risolvere un omicidio avvenuto durante l'inaugurazione notturna di un museo dedicato alla storia dell'informatica: esplora le sale, interroga i sospettati, raccoglie indizi nel taccuino e formula l'accusa finale.
+Il giocatore veste i panni di un investigatore che deve risolvere un omicidio avvenuto durante l'inaugurazione notturna di un museo dedicato alla storia dell'informatica: crea il proprio personaggio distribuendo i punti caratteristica, esplora le sale, interroga i sospettati superando **prove di abilità**, raccoglie indizi guadagnando **esperienza** e formula l'accusa finale.
 
 Progetto d'esame per il corso di **Metodologie di Programmazione e Modellazione della Conoscenza** — Università degli Studi di Camerino, A.A. 2025/2026.
 
@@ -38,12 +38,21 @@ cd rpg125947
 
 ## 🎮 Come si gioca
 
-1. All'avvio inserisci il **nome dell'investigatore** e premi _Inizia a Giocare_.
+1. All'avvio inserisci il **nome dell'investigatore** e **distribuisci i punti caratteristica** tra le quattro abilità (Osservazione, Intuito, Eloquenza, Logica), poi premi _Inizia a Giocare_.
 2. **Esplora** le sale del museo usando le frecce/uscite sul bordo della scena.
-3. **Clicca sui personaggi** per interrogarli: le testimonianze finiscono nel taccuino.
-4. **Clicca sugli hotspot** (aree che si illuminano al passaggio del mouse) per ispezionare oggetti e trovare indizi.
-5. Consulta il **Taccuino** per rivedere indizi, testimonianze e sospettati; puoi **salvare** e **caricare** la partita.
-6. Quando hai le prove, premi **Formula accusa**, indica il colpevole e seleziona gli indizi a supporto. L'accusa è corretta solo con il colpevole giusto **e** tutte le prove decisive.
+3. **Clicca sui personaggi** per interrogarli: le testimonianze finiscono nel taccuino. Alcune domande sono **prove di Eloquenza** (🎲): solo superandole il testimone parla.
+4. **Clicca sugli hotspot** (aree che si illuminano al passaggio del mouse) per ispezionare oggetti. Gli indizi più nascosti richiedono una **prova di abilità** (Osservazione, Intuito o Logica): un tiro di dado **d20 + attributo** contro una difficoltà.
+5. Ogni indizio raccolto dà **esperienza**: salendo di livello ottieni **punti abilità** da investire sugli attributi dalla scheda _Investigatore_ del Taccuino.
+6. Consulta il **Taccuino** per rivedere scheda personaggio, indizi, testimonianze e sospettati; puoi **salvare** e **caricare** la partita (progressione inclusa).
+7. Quando hai le prove, premi **Formula accusa**, indica il colpevole e seleziona gli indizi a supporto. L'accusa è corretta solo con il colpevole giusto **e** tutte le prove decisive.
+
+---
+
+## 🎲 Elementi di ruolo (RPG)
+
+- **Scheda personaggio**: quattro attributi (Osservazione, Intuito, Eloquenza, Logica) scelti in creazione distribuendo un pool di punti.
+- **Prove di abilità** (_skill check_): ispezioni e interrogatori chiave si risolvono con un tiro **d20 + attributo ≥ difficoltà**. La logica è una _Strategy_ (`RisolutoreProva`) iniettabile, quindi i test la rendono deterministica.
+- **Progressione**: raccogliere indizi accredita esperienza; al passaggio di livello si guadagnano punti abilità da spendere sugli attributi. Livello, esperienza e attributi sono **persistiti** nel salvataggio.
 
 ---
 
@@ -64,7 +73,7 @@ La documentazione completa (funzionalità, responsabilità delle classi e interf
 
 ## 🤖 Uso di strumenti di AI
 
-Questo progetto è stato realizzato **con un uso mirato di Intelligenza Artificiale**, in particolare **Claude (Anthropic)**, utilizzato per consigli e stesura di alcune righe di codice per semplificare il lavoro. 
+Questo progetto è stato realizzato **con un uso mirato di Intelligenza Artificiale**, in particolare **Claude (Anthropic)**, utilizzato per consigli e stesura di alcune righe di codice per semplificare il lavoro.
 
 **Per quali attività è stata usata l'AI:**
 

@@ -1,5 +1,6 @@
 package it.unicam.cs.mpgc.rpg125947.persistence.xml;
 
+import it.unicam.cs.mpgc.rpg125947.model.Attributo;
 import it.unicam.cs.mpgc.rpg125947.model.Caso;
 import it.unicam.cs.mpgc.rpg125947.model.Investigatore;
 import it.unicam.cs.mpgc.rpg125947.model.Partita;
@@ -25,7 +26,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -60,9 +63,23 @@ public final class XmlGameStateRepository implements GameStateRepository {
             Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
 
             Element root = doc.createElement("partita");
-            root.setAttribute("investigatore", partita.getInvestigatore().getNome());
+            Investigatore investigatore = partita.getInvestigatore();
+            root.setAttribute("investigatore", investigatore.getNome());
             root.setAttribute("stanza", partita.getStanzaCorrente().getId());
+            // Scheda personaggio: livello, esperienza, punti abilita e attributi.
+            root.setAttribute("livello", String.valueOf(investigatore.getLivello()));
+            root.setAttribute("esperienza", String.valueOf(investigatore.getEsperienza()));
+            root.setAttribute("puntiAbilita", String.valueOf(investigatore.getPuntiAbilita()));
             doc.appendChild(root);
+
+            Element attributiEl = doc.createElement("attributi");
+            investigatore.getAttributi().forEach((attributo, valore) -> {
+                Element e = doc.createElement("attributo");
+                e.setAttribute("nome", attributo.name());
+                e.setAttribute("valore", String.valueOf(valore));
+                attributiEl.appendChild(e);
+            });
+            root.appendChild(attributiEl);
 
             Element taccuinoEl = doc.createElement("taccuino");
             Taccuino taccuino = partita.getTaccuino();
@@ -101,7 +118,7 @@ public final class XmlGameStateRepository implements GameStateRepository {
             Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(file.toFile());
             Element root = doc.getDocumentElement();
 
-            Partita partita = new Partita(new Investigatore(root.getAttribute("investigatore")), caso);
+            Partita partita = new Partita(ricostruisciInvestigatore(root), caso);
             partita.muoviVerso(caso.getStanza(root.getAttribute("stanza")));
             Taccuino taccuino = partita.getTaccuino();
 
@@ -138,6 +155,31 @@ public final class XmlGameStateRepository implements GameStateRepository {
         } catch (IOException e) {
             throw new PersistenzaException("Impossibile elencare i salvataggi", e);
         }
+    }
+
+    /**
+     * Ricostruisce l'investigatore dalla scheda salvata. I vecchi salvataggi privi
+     * di attributi/progressione ricadono sul profilo standard (retrocompatibilita).
+     */
+    private static Investigatore ricostruisciInvestigatore(Element root) {
+        String nome = root.getAttribute("investigatore");
+        Map<Attributo, Integer> attributi = new EnumMap<>(Attributo.class);
+        for (Element a : figli(root, "attributi", "attributo")) {
+            attributi.put(Attributo.valueOf(a.getAttribute("nome")),
+                    Integer.parseInt(a.getAttribute("valore")));
+        }
+        Investigatore investigatore = attributi.size() == Attributo.values().length
+                ? new Investigatore(nome, attributi)
+                : new Investigatore(nome);
+        int livello = interoOppure(root.getAttribute("livello"), 1);
+        int esperienza = interoOppure(root.getAttribute("esperienza"), 0);
+        int punti = interoOppure(root.getAttribute("puntiAbilita"), 0);
+        investigatore.ripristinaProgressione(Math.max(1, livello), Math.max(0, esperienza), Math.max(0, punti));
+        return investigatore;
+    }
+
+    private static int interoOppure(String valore, int predefinito) {
+        return valore == null || valore.isBlank() ? predefinito : Integer.parseInt(valore);
     }
 
     private void scrivi(Document doc, Path file) throws Exception {

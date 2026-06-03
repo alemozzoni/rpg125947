@@ -2,6 +2,7 @@ package it.unicam.cs.mpgc.rpg125947.model;
 
 import it.unicam.cs.mpgc.rpg125947.model.interfaces.Ispezionabile;
 import it.unicam.cs.mpgc.rpg125947.util.Validazioni;
+// Attributo e nello stesso package: nessun import necessario.
 
 import java.util.Optional;
 
@@ -22,14 +23,46 @@ public final class Hotspot implements Ispezionabile {
     private final String descrizione;
     private final Coordinata posizione;
     private final Indizio indizio; // puo essere null: hotspot solo descrittivo
+    private final Attributo attributoRichiesto; // null: ispezione senza prova
+    private final int difficolta;               // soglia della prova (0 se assente)
     private boolean giaIspezionato;
 
+    /** Hotspot la cui ispezione non richiede alcuna prova di abilita. */
     public Hotspot(String id, String nome, String descrizione, Coordinata posizione, Indizio indizio) {
+        this(id, nome, descrizione, posizione, indizio, null, 0);
+    }
+
+    /**
+     * @param attributoRichiesto attributo messo alla prova per scoprire l'indizio
+     *                           (se {@code null} l'ispezione riesce sempre)
+     * @param difficolta         soglia della prova; rilevante solo se l'attributo e presente
+     */
+    public Hotspot(String id, String nome, String descrizione, Coordinata posizione,
+                   Indizio indizio, Attributo attributoRichiesto, int difficolta) {
         this.id = Validazioni.nonVuota(id, "id hotspot");
         this.nome = Validazioni.nonVuota(nome, "nome hotspot");
         this.descrizione = Validazioni.nonVuota(descrizione, "descrizione hotspot");
         this.posizione = Validazioni.nonNullo(posizione, "posizione hotspot");
         this.indizio = indizio; // facoltativo
+        this.attributoRichiesto = attributoRichiesto; // facoltativo
+        if (attributoRichiesto != null && difficolta <= 0) {
+            throw new IllegalArgumentException("Una prova richiede una difficolta positiva");
+        }
+        this.difficolta = difficolta;
+    }
+
+    /** @return {@code true} se scoprire l'indizio richiede di superare una prova */
+    public boolean richiedeProva() {
+        return attributoRichiesto != null && indizio != null;
+    }
+
+    /** @return l'attributo messo alla prova, se l'ispezione e una sfida */
+    public Optional<Attributo> getAttributoRichiesto() {
+        return Optional.ofNullable(attributoRichiesto);
+    }
+
+    public int getDifficolta() {
+        return difficolta;
     }
 
     @Override
