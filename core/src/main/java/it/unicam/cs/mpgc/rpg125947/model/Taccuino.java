@@ -43,12 +43,18 @@ public final class Taccuino {
         return indizi.add(Validazioni.nonNullo(indizio, "indizio"));
     }
 
-    /** Registra una testimonianza raggruppandola per fonte. */
+    /**
+     * Registra una testimonianza raggruppandola per fonte. Una testimonianza
+     * identica gia presente (stessa fonte, testo e indizio rivelato) non viene
+     * duplicata: ri-porre la stessa domanda non sporca il taccuino.
+     */
     public void registra(Testimonianza t) {
         Validazioni.nonNullo(t, "testimonianza");
-        testimonianzePerFonte
-                .computeIfAbsent(t.fonte(), fonte -> new ArrayList<>())
-                .add(t);
+        List<Testimonianza> perFonte = testimonianzePerFonte
+                .computeIfAbsent(t.fonte(), fonte -> new ArrayList<>());
+        if (!perFonte.contains(t)) {
+            perFonte.add(t);
+        }
     }
 
     /** Annota un sospettato (con il suo movente noto) nel taccuino. */

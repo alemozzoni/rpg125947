@@ -34,4 +34,16 @@ class TaccuinoTest {
         assertEquals(2, taccuino.getTestimonianzePerFonte().get("Marco").size());
         assertEquals(1, taccuino.getTestimonianzePerFonte().get("Giulia").size());
     }
+
+    @Test
+    void laStessaTestimonianzaNonVieneDuplicata() {
+        Taccuino taccuino = new Taccuino();
+        Testimonianza t = new Testimonianza("Marco", "I log sono blindati.");
+        taccuino.registra(t);
+        taccuino.registra(t); // ri-posta la stessa domanda piu volte
+        taccuino.registra(new Testimonianza("Marco", "I log sono blindati."));
+
+        assertEquals(1, taccuino.getTestimonianzePerFonte().get("Marco").size(),
+                "una testimonianza identica non deve comparire piu volte");
+    }
 }
