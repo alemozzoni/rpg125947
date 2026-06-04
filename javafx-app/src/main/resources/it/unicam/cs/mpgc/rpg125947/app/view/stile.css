@@ -215,8 +215,9 @@
   -fx-padding: 4;
 }
 
+/* Hover: alone sepia tenue, in tono con la palette (non piu giallo neon acceso). */
 .sprite-personaggio:hover {
-  -fx-effect: dropshadow(gaussian, rgba(223, 237, 0, 0.85), 20, 0.4, 0, 0);
+  -fx-effect: dropshadow(gaussian, rgba(230, 193, 138, 0.5), 22, 0.3, 0, 0);
 }
 
 .nome-personaggio {
