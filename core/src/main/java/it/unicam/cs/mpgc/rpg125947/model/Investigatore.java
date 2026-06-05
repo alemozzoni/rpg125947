@@ -78,6 +78,27 @@ public final class Investigatore {
         return Collections.unmodifiableMap(attributi);
     }
 
+    /**
+     * L'attributo su cui l'investigatore e piu specializzato: definisce il suo
+     * <strong>stile investigativo</strong> e, di conseguenza, le domande che puo
+     * porre e le risposte che ottiene nei dialoghi (vedi
+     * {@link it.unicam.cs.mpgc.rpg125947.model.dialogo.Dialogo#opzioniPer}).
+     *
+     * <p>A parita di valore vince l'attributo che compare prima nell'ordine di
+     * {@link Attributo}: la scelta e cosi <em>deterministica</em> e stabile.</p>
+     *
+     * @return l'attributo con il valore piu alto (mai {@code null})
+     */
+    public Attributo attributoDominante() {
+        Attributo dominante = Attributo.values()[0];
+        for (Attributo a : Attributo.values()) {
+            if (attributi.get(a) > attributi.get(dominante)) {
+                dominante = a;
+            }
+        }
+        return dominante;
+    }
+
     public String getNome() {
         return nome;
     }
