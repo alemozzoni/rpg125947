@@ -1,5 +1,6 @@
 package it.unicam.cs.mpgc.rpg125947.model.dialogo;
 
+import it.unicam.cs.mpgc.rpg125947.model.Attributo;
 import it.unicam.cs.mpgc.rpg125947.util.Validazioni;
 
 import java.util.ArrayList;
@@ -29,5 +30,21 @@ public final class Dialogo {
 
     public List<OpzioneDialogo> getOpzioni() {
         return Collections.unmodifiableList(opzioni);
+    }
+
+    /**
+     * Le opzioni effettivamente disponibili per un dato <strong>stile
+     * investigativo</strong>: tutte quelle universali piu quelle riservate
+     * proprio a quell'attributo dominante. E qui che il dialogo si ramifica in
+     * base a dove il giocatore ha investito i punti caratteristica.
+     *
+     * @param stileDominante attributo dominante dell'investigatore
+     * @return la lista (in sola lettura) delle domande proponibili a quel profilo
+     */
+    public List<OpzioneDialogo> opzioniPer(Attributo stileDominante) {
+        Validazioni.nonNullo(stileDominante, "stile dominante");
+        return opzioni.stream()
+                .filter(o -> o.disponibilePer(stileDominante))
+                .toList();
     }
 }
