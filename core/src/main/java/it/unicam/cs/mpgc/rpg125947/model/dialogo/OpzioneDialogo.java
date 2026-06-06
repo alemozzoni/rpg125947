@@ -14,13 +14,21 @@ import java.util.Optional;
  * un controllo (es. convincere un testimone reticente con l'Eloquenza). In
  * assenza di attributo la risposta e sempre disponibile.</p>
  *
+ * <p>Una domanda puo inoltre essere <strong>caratterizzante</strong>: se
+ * {@code stile} e valorizzato, l'opzione compare solo all'investigatore il cui
+ * attributo dominante coincide con esso. E il meccanismo dei dialoghi ramificati
+ * per stile investigativo: a parita di indizi raggiungibili, profili diversi
+ * pongono domande diverse e ricevono risposte diverse. Se {@code stile} e
+ * {@code null} la domanda e <em>universale</em> (mostrata a chiunque).</p>
+ *
  * @param domanda    testo della domanda mostrata come pulsante di scelta
  * @param risposta   testimonianza restituita dal personaggio
  * @param attributo  attributo messo alla prova (puo essere {@code null})
  * @param difficolta soglia della prova; rilevante solo se {@code attributo} e presente
+ * @param stile      attributo dominante a cui la domanda e riservata (puo essere {@code null})
  */
 public record OpzioneDialogo(String domanda, Testimonianza risposta,
-                             Attributo attributo, int difficolta) {
+                             Attributo attributo, int difficolta, Attributo stile) {
 
     public OpzioneDialogo {
         Validazioni.nonVuota(domanda, "domanda");
@@ -30,9 +38,14 @@ public record OpzioneDialogo(String domanda, Testimonianza risposta,
         }
     }
 
-    /** Opzione semplice, senza prova di abilita. */
+    /** Opzione con eventuale prova di abilita ma universale (nessuno stile). */
+    public OpzioneDialogo(String domanda, Testimonianza risposta, Attributo attributo, int difficolta) {
+        this(domanda, risposta, attributo, difficolta, null);
+    }
+
+    /** Opzione semplice, senza prova di abilita ne vincolo di stile. */
     public OpzioneDialogo(String domanda, Testimonianza risposta) {
-        this(domanda, risposta, null, 0);
+        this(domanda, risposta, null, 0, null);
     }
 
     /** @return {@code true} se ottenere la risposta richiede di superare una prova */
@@ -43,5 +56,19 @@ public record OpzioneDialogo(String domanda, Testimonianza risposta,
     /** @return l'attributo messo alla prova, se la domanda e una sfida */
     public Optional<Attributo> attributoRichiesto() {
         return Optional.ofNullable(attributo);
+    }
+
+    /** @return lo stile investigativo a cui la domanda e riservata, se presente */
+    public Optional<Attributo> stileRichiesto() {
+        return Optional.ofNullable(stile);
+    }
+
+    /**
+     * @param dominante stile investigativo (attributo dominante) del giocatore
+     * @return {@code true} se la domanda e disponibile per quel profilo: lo e
+     *         sempre se universale, altrimenti solo se lo stile coincide
+     */
+    public boolean disponibilePer(Attributo dominante) {
+        return stile == null || stile == dominante;
     }
 }
