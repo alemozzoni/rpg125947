@@ -6,6 +6,7 @@ import it.unicam.cs.mpgc.rpg125947.app.ui.EffettoTesto;
 import it.unicam.cs.mpgc.rpg125947.app.ui.FinestraTaccuino;
 import it.unicam.cs.mpgc.rpg125947.logic.MotorePartita;
 import it.unicam.cs.mpgc.rpg125947.logic.RisultatoInterazione;
+import it.unicam.cs.mpgc.rpg125947.model.Attributo;
 import it.unicam.cs.mpgc.rpg125947.model.AzioneGiocatore;
 import it.unicam.cs.mpgc.rpg125947.model.Coordinata;
 import it.unicam.cs.mpgc.rpg125947.model.Hotspot;
@@ -199,8 +200,11 @@ public final class EsplorazioneController {
         HBox testa = new HBox(14, ritratto, intestazione);
         testa.setAlignment(Pos.CENTER_LEFT);
 
+        // Le domande disponibili dipendono dallo stile investigativo: l'attributo
+        // su cui il giocatore ha investito piu punti sblocca battute dedicate.
+        Attributo stile = partita().getInvestigatore().attributoDominante();
         VBox domande = new VBox(8);
-        for (OpzioneDialogo opzione : dialogo.getOpzioni()) {
+        for (OpzioneDialogo opzione : dialogo.opzioniPer(stile)) {
             // Le domande che sono una prova di abilita mostrano l'attributo richiesto.
             String etichetta = opzione.richiedeProva()
                     ? "🎲 [" + opzione.attributoRichiesto().orElseThrow().etichetta() + "] " + opzione.domanda()
