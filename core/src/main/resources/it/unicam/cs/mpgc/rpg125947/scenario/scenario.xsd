@@ -112,6 +112,8 @@
         <!-- prova di abilita per ottenere la risposta; assente = risposta sempre disponibile -->
         <xs:attribute name="attributo" type="Attributo" use="optional"/>
         <xs:attribute name="difficolta" type="Difficolta" use="optional"/>
+        <!-- stile investigativo a cui la domanda e riservata; assente = domanda universale -->
+        <xs:attribute name="stile" type="Attributo" use="optional"/>
     </xs:complexType>
 
     <xs:complexType name="Dialogo">
