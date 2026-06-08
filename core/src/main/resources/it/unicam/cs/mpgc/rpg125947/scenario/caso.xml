@@ -40,14 +40,22 @@
                              movente="Debiti personali; si teme un suo coinvolgimento in un furto"
                              alibi="Stavo facendo il giro di ronda">
                     <dialogo battutaIniziale="Salve, investigatore. Brutta nottata... il direttore... non riesco a crederci.">
-                        <opzione domanda="Dov'era al momento del delitto?">
-                            <testimonianza>Giro di ronda, come ogni notte. Ho sentito un trambusto verso la Sala dei Linguaggi, ma sono arrivato troppo tardi.</testimonianza>
-                        </opzione>
+                        <!-- Domanda universale: la chiave serve a tutti per raggiungere la perizia. -->
                         <opzione domanda="Mi serve accedere all'Ufficio del Direttore.">
                             <testimonianza indizio="chiave_ufficio">Tenga, questa e la chiave dell'ufficio. La apra solo lei: io non voglio altri guai.</testimonianza>
                         </opzione>
-                        <opzione domanda="Ha visto qualcuno muoversi stanotte?">
-                            <testimonianza>La signora Lovato andava e veniva dalla caffetteria. Nervosa. Ma non sta a me giudicare.</testimonianza>
+                        <!-- Varianti per stile investigativo: stessa notte, sguardi diversi. -->
+                        <opzione domanda="Durante la ronda ha notato qualcosa fuori posto?" stile="OSSERVAZIONE">
+                            <testimonianza>Ora che mi ci fa pensare... nella Sala dei Linguaggi dal piedistallo mancava la targa premio di vetro. L'ho notato di sfuggita, passando.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Si fidi dell'istinto: chi le e parso piu a disagio stanotte?" stile="INTUITO">
+                            <testimonianza>La signora Lovato. Andava e veniva dalla caffetteria, nervosa. Il mio naso dice che qualcosa, in lei, non quadrava.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Mi racconti con calma com'e andata la sua notte." stile="ELOQUENZA">
+                            <testimonianza>Giro di ronda come ogni notte. Ho sentito un trambusto verso la Sala dei Linguaggi, ma sono arrivato troppo tardi. Mi creda, vorrei aver fatto di piu.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Ricostruiamo i suoi spostamenti: orari precisi, per favore." stile="LOGICA">
+                            <testimonianza>Partenza della ronda alle 21:25 dall'atrio, rientro verso le 21:45. Il trambusto l'ho collocato intorno alle 21:40, dalla parte della Sala dei Linguaggi.</testimonianza>
                         </opzione>
                     </dialogo>
                 </personaggio>
