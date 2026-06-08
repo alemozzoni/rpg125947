@@ -115,14 +115,21 @@
                              movente="Il manoscritto da lei donato e un falso e il direttore stava per smascherarla, con rovina economica e d'immagine"
                              alibi="Sono rimasta nel Foyer tra gli ospiti tutta la sera">
                     <dialogo battutaIniziale="Oh, l'investigatore. Che serata rovinata. Dono un pezzo da museo e mi ritrovo in mezzo a uno scandalo simile.">
+                        <!-- Universale: la sua versione (bugiarda) sulla posizione alle 21:38. -->
                         <opzione domanda="Dove si trovava alle 21:38?">
                             <testimonianza>Qui nella caffetteria, ovviamente, tra gli ospiti. Non mi sono mai allontanata, nemmeno un minuto.</testimonianza>
                         </opzione>
-                        <opzione domanda="Mi parli del manoscritto.">
-                            <testimonianza>Autentico, glielo assicuro. Acquistato da un collezionista insospettabile. I dubbi del dottor Renzi erano del tutto infondati.</testimonianza>
+                        <opzione domanda="Il suo calice era ancora pieno alle 21:40: strano, per chi non si muove dal buffet." stile="OSSERVAZIONE">
+                            <testimonianza>Che occhio... avro bevuto poco, ero presa dalle conversazioni. Non ci vedo nulla di strano, davvero.</testimonianza>
                         </opzione>
-                        <opzione domanda="Aveva discusso con il direttore?">
-                            <testimonianza>Un confronto tecnico, nulla di piu. Era teso, voleva persino annullare l'inaugurazione. Una follia.</testimonianza>
+                        <opzione domanda="Ho la sensazione che lei tema qualcosa. Cosa, esattamente?" stile="INTUITO">
+                            <testimonianza>Lo scandalo, ovvio. Si immagina i giornali? La mecenate del museo nel mezzo di un omicidio. Non c'e altro, glielo assicuro.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Mi parli del manoscritto, senza giri di parole." stile="ELOQUENZA">
+                            <testimonianza>Autentico, glielo garantisco. Acquistato da un collezionista insospettabile. I dubbi del dottor Renzi erano del tutto infondati.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Il registro elettronico degli accessi puo confermare la sua posizione?" stile="LOGICA">
+                            <testimonianza>Il registro? Io... non saprei come funzionano quelle cose. Comunque ero in caffetteria, gliel'ho gia detto. Non insista.</testimonianza>
                         </opzione>
                     </dialogo>
                 </personaggio>
