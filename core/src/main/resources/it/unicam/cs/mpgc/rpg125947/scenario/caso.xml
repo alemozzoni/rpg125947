@@ -80,14 +80,21 @@
                              movente="Ambizione: il direttore le bloccava la promozione a curatrice"
                              alibi="Ero in ufficio in videochiamata a preparare il discorso">
                     <dialogo battutaIniziale="Investigatore. E una tragedia. Il dottor Renzi era esigente, ma non meritava tutto questo.">
+                        <!-- Universale: l'alibi di Elena (falsa pista) e accessibile a chiunque. -->
                         <opzione domanda="Dov'era alle 21:40?">
                             <testimonianza indizio="alibi_elena">In videochiamata con la sede di Roma per il discorso. Resta il registro della chiamata, con gli orari: puo verificarlo quando vuole.</testimonianza>
                         </opzione>
-                        <opzione domanda="Aveva dissapori con il direttore?">
-                            <testimonianza>Non lo nego: mi teneva ferma da anni. Ma da qui a ucciderlo... no. Guardi piuttosto chi ha 'donato' quel manoscritto.</testimonianza>
+                        <opzione domanda="Ha notato anomalie nel manoscritto esposto?" stile="OSSERVAZIONE">
+                            <testimonianza>Le date. Il dottore ripeteva che 'non tornavano'. Confronti con cura la teca e la timeline in sala: salta all'occhio.</testimonianza>
                         </opzione>
-                        <opzione domanda="Cosa pensa del manoscritto?">
-                            <testimonianza>Il dottore aveva dubbi seri. Ripeteva che le date 'non tornavano'. Voleva un confronto, proprio stasera.</testimonianza>
+                        <opzione domanda="A intuito, chi aveva piu interesse a far tacere il direttore?" stile="INTUITO">
+                            <testimonianza>Chi ha 'donato' quel manoscritto. Se fosse un falso, sarebbe la sua rovina. Si chieda chi rischiava di piu.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Aveva dissapori con il direttore? Sia sincera." stile="ELOQUENZA">
+                            <testimonianza>Non lo nego: mi teneva ferma da anni e la promozione restava un miraggio. Ma da qui a ucciderlo, no. Le mie ambizioni non arrivano a tanto.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Cosa sa dei dubbi tecnici del direttore sul manoscritto?" stile="LOGICA">
+                            <testimonianza>Aveva messo nero su bianco una perizia. Sosteneva che le date fossero incompatibili e voleva un confronto proprio stasera.</testimonianza>
                         </opzione>
                     </dialogo>
                 </personaggio>
