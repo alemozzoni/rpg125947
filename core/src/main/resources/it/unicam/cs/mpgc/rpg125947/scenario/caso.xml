@@ -136,11 +136,18 @@
                 <personaggio nome="Giulia Ferri" ruolo="Stagista di sala" sprite="giulia.png" x="0.58" y="0.7" scala="1.15"
                              sospettato="false">
                     <dialogo battutaIniziale="S-salve. Sono solo la stagista, stavo riordinando qui in caffetteria...">
+                        <!-- Universali: la prova di Eloquenza (cross_check) e l'aggancio alla perizia. -->
                         <opzione domanda="Hai notato qualcosa di strano?" attributo="ELOQUENZA" difficolta="11">
                             <testimonianza indizio="cross_check">La signora Lovato e uscita dalla caffetteria poco dopo le 21:30 ed e tornata agitata una decina di minuti dopo. L'ho segnato perche dovevo registrare le presenze.</testimonianza>
                         </opzione>
                         <opzione domanda="Conoscevi il direttore?">
                             <testimonianza>Poco. Ma quel pomeriggio l'ho sentito al telefono parlare di 'date che non quadrano' e di una 'perizia'.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Hai un registro delle presenze? Cosa ci leggi?" stile="OSSERVAZIONE">
+                            <testimonianza>Si, segnavo chi entrava e usciva. E pieno di correzioni... qualcuno e uscito e rientrato, ma non saprei dirle con certezza l'orario.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Sembri spaventata. Di chi hai timore?" stile="INTUITO">
+                            <testimonianza>Non sono abituata a queste cose... e la signora Lovato mi mette soggezione. Stasera era diversa, tesa, non la solita ospite sorridente.</testimonianza>
                         </opzione>
                     </dialogo>
                 </personaggio>
