@@ -177,14 +177,21 @@
                              movente="Il direttore sospettava manomissioni nei registri digitali"
                              alibi="Ero nella Sala Server a sistemare i log">
                     <dialogo battutaIniziale="Investigatore. Se e qui per i log, sono in ordine. Anzi, sono blindati.">
+                        <!-- Universali: la prova di Logica (integrita_hash) e l'invito al terminale. -->
                         <opzione domanda="I registri possono essere falsificati?" attributo="LOGICA" difficolta="12">
                             <testimonianza indizio="integrita_hash">Impossibile alterarli senza farsi scoprire: ogni record include l'hash del precedente, come i commit di Git. Cambi un dato e salta l'intera catena. Quindi cio che legge li' e vero.</testimonianza>
                         </opzione>
                         <opzione domanda="Cosa dicono i log di stanotte?">
                             <testimonianza>Tutti gli accessi sono tracciati per badge. Il sistema non mente: controlli pure l'orario di ogni apertura, al terminale.</testimonianza>
                         </opzione>
-                        <opzione domanda="Lei dov'era?">
-                            <testimonianza>Qui, a monitorare. La mia postazione registra ogni comando che impartisco: sono coperto.</testimonianza>
+                        <opzione domanda="Mi risulta un badge usato fuori orario. Le dice qualcosa?" stile="OSSERVAZIONE">
+                            <testimonianza>Puo darsi. Ogni apertura lascia una traccia col suo orario: vada al terminale e filtri per badge, l'ora non mente.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Ho la sensazione che lei sappia piu di quanto dica." stile="INTUITO">
+                            <testimonianza>So solo che i miei log sono blindati. Se cerca un colpevole, lo cerchi nei dati, non tra i sospetti facili come me.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Si rilassi e mi spieghi a parole sue come funziona il registro." stile="ELOQUENZA">
+                            <testimonianza>Ogni record porta l'impronta di quello prima, come i commit di Git. Tocca un dato e l'intera catena salta: barare e impossibile.</testimonianza>
                         </opzione>
                     </dialogo>
                 </personaggio>
