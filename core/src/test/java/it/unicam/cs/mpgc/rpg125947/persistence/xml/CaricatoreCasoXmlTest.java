@@ -1,10 +1,15 @@
 package it.unicam.cs.mpgc.rpg125947.persistence.xml;
 
+import it.unicam.cs.mpgc.rpg125947.model.Attributo;
 import it.unicam.cs.mpgc.rpg125947.model.Caso;
 import it.unicam.cs.mpgc.rpg125947.model.Indizio;
+import it.unicam.cs.mpgc.rpg125947.model.dialogo.Dialogo;
+import it.unicam.cs.mpgc.rpg125947.model.dialogo.OpzioneDialogo;
+import it.unicam.cs.mpgc.rpg125947.model.personaggio.Personaggio;
 import it.unicam.cs.mpgc.rpg125947.persistence.PersistenzaException;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -45,6 +50,26 @@ class CaricatoreCasoXmlTest {
     void lUfficioEChiusoAChiave() {
         Caso caso = new CaricatoreCasoXml().carica();
         assertTrue(caso.getStanza("ufficio").isChiusaAChiave());
+    }
+
+    @Test
+    void ogniStileVedeLaDomandaUniversaleDellaChiaveEUnaDedicata() {
+        Caso caso = new CaricatoreCasoXml().carica();
+        Personaggio guardia = caso.getStanzaIniziale().getPersonaggi().stream()
+                .filter(p -> p.getNome().equals("Tommaso Greco"))
+                .findFirst().orElseThrow();
+        Dialogo dialogo = guardia.avviaDialogo();
+
+        for (Attributo stile : Attributo.values()) {
+            List<OpzioneDialogo> opzioni = dialogo.opzioniPer(stile);
+            // La chiave dell'ufficio (domanda universale) resta accessibile a ogni profilo.
+            boolean offreChiave = opzioni.stream().anyMatch(o -> o.risposta()
+                    .indizioRivelato().map("chiave_ufficio"::equals).orElse(false));
+            assertTrue(offreChiave, "lo stile " + stile + " deve poter ottenere la chiave");
+            // E ciascuno sblocca almeno una domanda riservata al proprio stile.
+            assertTrue(opzioni.stream().anyMatch(o -> o.stileRichiesto().isPresent()),
+                    "lo stile " + stile + " deve avere una domanda dedicata");
+        }
     }
 
     @Test
