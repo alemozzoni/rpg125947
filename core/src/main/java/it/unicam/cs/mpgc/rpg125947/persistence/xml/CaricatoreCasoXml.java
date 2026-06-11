@@ -222,7 +222,7 @@ public final class CaricatoreCasoXml implements ScenarioLoader {
             Element t = primoFiglio(opz, "testimonianza");
             Testimonianza testimonianza = new Testimonianza(fonte, testo(t), opzionale(t, "indizio"));
             opzioni.add(new OpzioneDialogo(opz.getAttribute("domanda"), testimonianza,
-                    attributoOpzionale(opz), difficoltaOpzionale(opz)));
+                    attributoOpzionale(opz), difficoltaOpzionale(opz), stileOpzionale(opz)));
         }
         return new Dialogo(dialogoEl.getAttribute("battutaIniziale"), opzioni);
     }
@@ -246,6 +246,12 @@ public final class CaricatoreCasoXml implements ScenarioLoader {
     /** Attributo della prova di abilita; assente nello XML = nessuna prova. */
     private static Attributo attributoOpzionale(Element el) {
         String v = opzionale(el, "attributo");
+        return v == null ? null : Attributo.valueOf(v);
+    }
+
+    /** Stile investigativo a cui la domanda e riservata; assente = domanda universale. */
+    private static Attributo stileOpzionale(Element el) {
+        String v = opzionale(el, "stile");
         return v == null ? null : Attributo.valueOf(v);
     }
 

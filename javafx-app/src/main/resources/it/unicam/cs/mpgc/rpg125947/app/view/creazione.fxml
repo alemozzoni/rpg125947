@@ -35,6 +35,9 @@
         <VBox fx:id="schedaAttributi" alignment="CENTER" spacing="8" maxWidth="420"
               styleClass="scheda-attributi"/>
 
+        <!-- Anteprima dello stile investigativo determinato dalla distribuzione. -->
+        <Label fx:id="stileScelto" styleClass="didascalia" maxWidth="420" wrapText="true"/>
+
         <Button fx:id="inizia" text="INIZIA A GIOCARE" onAction="#onInizia" styleClass="bottone-principale"/>
         <Label fx:id="messaggioErrore" styleClass="messaggio-errore" wrapText="true" maxWidth="440"/>
     </VBox>

@@ -40,14 +40,22 @@
                              movente="Debiti personali; si teme un suo coinvolgimento in un furto"
                              alibi="Stavo facendo il giro di ronda">
                     <dialogo battutaIniziale="Salve, investigatore. Brutta nottata... il direttore... non riesco a crederci.">
-                        <opzione domanda="Dov'era al momento del delitto?">
-                            <testimonianza>Giro di ronda, come ogni notte. Ho sentito un trambusto verso la Sala dei Linguaggi, ma sono arrivato troppo tardi.</testimonianza>
-                        </opzione>
+                        <!-- Domanda universale: la chiave serve a tutti per raggiungere la perizia. -->
                         <opzione domanda="Mi serve accedere all'Ufficio del Direttore.">
                             <testimonianza indizio="chiave_ufficio">Tenga, questa e la chiave dell'ufficio. La apra solo lei: io non voglio altri guai.</testimonianza>
                         </opzione>
-                        <opzione domanda="Ha visto qualcuno muoversi stanotte?">
-                            <testimonianza>La signora Lovato andava e veniva dalla caffetteria. Nervosa. Ma non sta a me giudicare.</testimonianza>
+                        <!-- Varianti per stile investigativo: stessa notte, sguardi diversi. -->
+                        <opzione domanda="Durante la ronda ha notato qualcosa fuori posto?" stile="OSSERVAZIONE">
+                            <testimonianza>Ora che mi ci fa pensare... nella Sala dei Linguaggi dal piedistallo mancava la targa premio di vetro. L'ho notato di sfuggita, passando.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Si fidi dell'istinto: chi le e parso piu a disagio stanotte?" stile="INTUITO">
+                            <testimonianza>La signora Lovato. Andava e veniva dalla caffetteria, nervosa. Il mio naso dice che qualcosa, in lei, non quadrava.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Mi racconti con calma com'e andata la sua notte." stile="ELOQUENZA">
+                            <testimonianza>Giro di ronda come ogni notte. Ho sentito un trambusto verso la Sala dei Linguaggi, ma sono arrivato troppo tardi. Mi creda, vorrei aver fatto di piu.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Ricostruiamo i suoi spostamenti: orari precisi, per favore." stile="LOGICA">
+                            <testimonianza>Partenza della ronda alle 21:25 dall'atrio, rientro verso le 21:45. Il trambusto l'ho collocato intorno alle 21:40, dalla parte della Sala dei Linguaggi.</testimonianza>
                         </opzione>
                     </dialogo>
                 </personaggio>
@@ -72,14 +80,21 @@
                              movente="Ambizione: il direttore le bloccava la promozione a curatrice"
                              alibi="Ero in ufficio in videochiamata a preparare il discorso">
                     <dialogo battutaIniziale="Investigatore. E una tragedia. Il dottor Renzi era esigente, ma non meritava tutto questo.">
+                        <!-- Universale: l'alibi di Elena (falsa pista) e accessibile a chiunque. -->
                         <opzione domanda="Dov'era alle 21:40?">
                             <testimonianza indizio="alibi_elena">In videochiamata con la sede di Roma per il discorso. Resta il registro della chiamata, con gli orari: puo verificarlo quando vuole.</testimonianza>
                         </opzione>
-                        <opzione domanda="Aveva dissapori con il direttore?">
-                            <testimonianza>Non lo nego: mi teneva ferma da anni. Ma da qui a ucciderlo... no. Guardi piuttosto chi ha 'donato' quel manoscritto.</testimonianza>
+                        <opzione domanda="Ha notato anomalie nel manoscritto esposto?" stile="OSSERVAZIONE">
+                            <testimonianza>Le date. Il dottore ripeteva che 'non tornavano'. Confronti con cura la teca e la timeline in sala: salta all'occhio.</testimonianza>
                         </opzione>
-                        <opzione domanda="Cosa pensa del manoscritto?">
-                            <testimonianza>Il dottore aveva dubbi seri. Ripeteva che le date 'non tornavano'. Voleva un confronto, proprio stasera.</testimonianza>
+                        <opzione domanda="A intuito, chi aveva piu interesse a far tacere il direttore?" stile="INTUITO">
+                            <testimonianza>Chi ha 'donato' quel manoscritto. Se fosse un falso, sarebbe la sua rovina. Si chieda chi rischiava di piu.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Aveva dissapori con il direttore? Sia sincera." stile="ELOQUENZA">
+                            <testimonianza>Non lo nego: mi teneva ferma da anni e la promozione restava un miraggio. Ma da qui a ucciderlo, no. Le mie ambizioni non arrivano a tanto.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Cosa sa dei dubbi tecnici del direttore sul manoscritto?" stile="LOGICA">
+                            <testimonianza>Aveva messo nero su bianco una perizia. Sosteneva che le date fossero incompatibili e voleva un confronto proprio stasera.</testimonianza>
                         </opzione>
                     </dialogo>
                 </personaggio>
@@ -100,25 +115,39 @@
                              movente="Il manoscritto da lei donato e un falso e il direttore stava per smascherarla, con rovina economica e d'immagine"
                              alibi="Sono rimasta nel Foyer tra gli ospiti tutta la sera">
                     <dialogo battutaIniziale="Oh, l'investigatore. Che serata rovinata. Dono un pezzo da museo e mi ritrovo in mezzo a uno scandalo simile.">
+                        <!-- Universale: la sua versione (bugiarda) sulla posizione alle 21:38. -->
                         <opzione domanda="Dove si trovava alle 21:38?">
                             <testimonianza>Qui nella caffetteria, ovviamente, tra gli ospiti. Non mi sono mai allontanata, nemmeno un minuto.</testimonianza>
                         </opzione>
-                        <opzione domanda="Mi parli del manoscritto.">
-                            <testimonianza>Autentico, glielo assicuro. Acquistato da un collezionista insospettabile. I dubbi del dottor Renzi erano del tutto infondati.</testimonianza>
+                        <opzione domanda="Il suo calice era ancora pieno alle 21:40: strano, per chi non si muove dal buffet." stile="OSSERVAZIONE">
+                            <testimonianza>Che occhio... avro bevuto poco, ero presa dalle conversazioni. Non ci vedo nulla di strano, davvero.</testimonianza>
                         </opzione>
-                        <opzione domanda="Aveva discusso con il direttore?">
-                            <testimonianza>Un confronto tecnico, nulla di piu. Era teso, voleva persino annullare l'inaugurazione. Una follia.</testimonianza>
+                        <opzione domanda="Ho la sensazione che lei tema qualcosa. Cosa, esattamente?" stile="INTUITO">
+                            <testimonianza>Lo scandalo, ovvio. Si immagina i giornali? La mecenate del museo nel mezzo di un omicidio. Non c'e altro, glielo assicuro.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Mi parli del manoscritto, senza giri di parole." stile="ELOQUENZA">
+                            <testimonianza>Autentico, glielo garantisco. Acquistato da un collezionista insospettabile. I dubbi del dottor Renzi erano del tutto infondati.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Il registro elettronico degli accessi puo confermare la sua posizione?" stile="LOGICA">
+                            <testimonianza>Il registro? Io... non saprei come funzionano quelle cose. Comunque ero in caffetteria, gliel'ho gia detto. Non insista.</testimonianza>
                         </opzione>
                     </dialogo>
                 </personaggio>
                 <personaggio nome="Giulia Ferri" ruolo="Stagista di sala" sprite="giulia.png" x="0.58" y="0.7" scala="1.15"
                              sospettato="false">
                     <dialogo battutaIniziale="S-salve. Sono solo la stagista, stavo riordinando qui in caffetteria...">
+                        <!-- Universali: la prova di Eloquenza (cross_check) e l'aggancio alla perizia. -->
                         <opzione domanda="Hai notato qualcosa di strano?" attributo="ELOQUENZA" difficolta="11">
                             <testimonianza indizio="cross_check">La signora Lovato e uscita dalla caffetteria poco dopo le 21:30 ed e tornata agitata una decina di minuti dopo. L'ho segnato perche dovevo registrare le presenze.</testimonianza>
                         </opzione>
                         <opzione domanda="Conoscevi il direttore?">
                             <testimonianza>Poco. Ma quel pomeriggio l'ho sentito al telefono parlare di 'date che non quadrano' e di una 'perizia'.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Hai un registro delle presenze? Cosa ci leggi?" stile="OSSERVAZIONE">
+                            <testimonianza>Si, segnavo chi entrava e usciva. E pieno di correzioni... qualcuno e uscito e rientrato, ma non saprei dirle con certezza l'orario.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Sembri spaventata. Di chi hai timore?" stile="INTUITO">
+                            <testimonianza>Non sono abituata a queste cose... e la signora Lovato mi mette soggezione. Stasera era diversa, tesa, non la solita ospite sorridente.</testimonianza>
                         </opzione>
                     </dialogo>
                 </personaggio>
@@ -148,14 +177,21 @@
                              movente="Il direttore sospettava manomissioni nei registri digitali"
                              alibi="Ero nella Sala Server a sistemare i log">
                     <dialogo battutaIniziale="Investigatore. Se e qui per i log, sono in ordine. Anzi, sono blindati.">
+                        <!-- Universali: la prova di Logica (integrita_hash) e l'invito al terminale. -->
                         <opzione domanda="I registri possono essere falsificati?" attributo="LOGICA" difficolta="12">
                             <testimonianza indizio="integrita_hash">Impossibile alterarli senza farsi scoprire: ogni record include l'hash del precedente, come i commit di Git. Cambi un dato e salta l'intera catena. Quindi cio che legge li' e vero.</testimonianza>
                         </opzione>
                         <opzione domanda="Cosa dicono i log di stanotte?">
                             <testimonianza>Tutti gli accessi sono tracciati per badge. Il sistema non mente: controlli pure l'orario di ogni apertura, al terminale.</testimonianza>
                         </opzione>
-                        <opzione domanda="Lei dov'era?">
-                            <testimonianza>Qui, a monitorare. La mia postazione registra ogni comando che impartisco: sono coperto.</testimonianza>
+                        <opzione domanda="Mi risulta un badge usato fuori orario. Le dice qualcosa?" stile="OSSERVAZIONE">
+                            <testimonianza>Puo darsi. Ogni apertura lascia una traccia col suo orario: vada al terminale e filtri per badge, l'ora non mente.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Ho la sensazione che lei sappia piu di quanto dica." stile="INTUITO">
+                            <testimonianza>So solo che i miei log sono blindati. Se cerca un colpevole, lo cerchi nei dati, non tra i sospetti facili come me.</testimonianza>
+                        </opzione>
+                        <opzione domanda="Si rilassi e mi spieghi a parole sue come funziona il registro." stile="ELOQUENZA">
+                            <testimonianza>Ogni record porta l'impronta di quello prima, come i commit di Git. Tocca un dato e l'intera catena salta: barare e impossibile.</testimonianza>
                         </opzione>
                     </dialogo>
                 </personaggio>
