@@ -38,9 +38,9 @@ cd rpg125947
 
 ## 🎮 Come si gioca
 
-1. All'avvio inserisci il **nome dell'investigatore** e **distribuisci i punti caratteristica** tra le quattro abilità (Osservazione, Intuito, Eloquenza, Logica), poi premi _Inizia a Giocare_.
+1. All'avvio inserisci il **nome dell'investigatore** e **distribuisci i punti caratteristica** tra le quattro abilità (Osservazione, Intuito, Eloquenza, Logica), poi premi _Inizia a Giocare_. L'abilità su cui investi di più definisce il tuo **stile investigativo**, anticipato in tempo reale sotto la scheda.
 2. **Esplora** le sale del museo usando le frecce/uscite sul bordo della scena.
-3. **Clicca sui personaggi** per interrogarli: le testimonianze finiscono nel taccuino. Alcune domande sono **prove di Eloquenza** (🎲): solo superandole il testimone parla.
+3. **Clicca sui personaggi** per interrogarli: le testimonianze finiscono nel taccuino. Alcune domande sono **prove di Eloquenza** (🎲): solo superandole il testimone parla. Le domande proposte **cambiano con il tuo stile investigativo**: profili diversi pongono domande diverse e ottengono risposte diverse, pur potendo raggiungere tutti la **stessa soluzione**.
 4. **Clicca sugli hotspot** (aree che si illuminano al passaggio del mouse) per ispezionare oggetti. Gli indizi più nascosti richiedono una **prova di abilità** (Osservazione, Intuito o Logica): un tiro di dado **d20 + attributo** contro una difficoltà.
 5. Ogni indizio raccolto dà **esperienza**: salendo di livello ottieni **punti abilità** da investire sugli attributi dalla scheda _Investigatore_ del Taccuino.
 6. Consulta il **Taccuino** per rivedere scheda personaggio, indizi, testimonianze e sospettati; puoi **salvare** e **caricare** la partita (progressione inclusa).
@@ -51,6 +51,7 @@ cd rpg125947
 ## 🎲 Elementi di ruolo (RPG)
 
 - **Scheda personaggio**: quattro attributi (Osservazione, Intuito, Eloquenza, Logica) scelti in creazione distribuendo un pool di punti.
+- **Stile investigativo**: l'attributo dominante (quello su cui hai messo più punti) **ramifica i dialoghi**. Ogni interlocutore offre domande _universali_ (uguali per tutti, incluse quelle decisive) e domande _dedicate_ a uno specifico stile, con risposte caratterizzate. Le prove decisive restano raggiungibili da qualunque profilo: la **soluzione è unica**, il percorso narrativo no. Lo stile è derivato dagli attributi, quindi evolve anche salendo di livello e spendendo punti nel taccuino.
 - **Prove di abilità** (_skill check_): ispezioni e interrogatori chiave si risolvono con un tiro **d20 + attributo ≥ difficoltà**. La logica è una _Strategy_ (`RisolutoreProva`) iniettabile, quindi i test la rendono deterministica.
 - **Progressione**: raccogliere indizi accredita esperienza; al passaggio di livello si guadagnano punti abilità da spendere sugli attributi. Livello, esperienza e attributi sono **persistiti** nel salvataggio.
 
