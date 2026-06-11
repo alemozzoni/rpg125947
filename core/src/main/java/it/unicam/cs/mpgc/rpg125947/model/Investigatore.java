@@ -90,6 +90,20 @@ public final class Investigatore {
      * @return l'attributo con il valore piu alto (mai {@code null})
      */
     public Attributo attributoDominante() {
+        return dominante(attributi);
+    }
+
+    /**
+     * Variante statica riusabile del calcolo dello stile: l'attributo con il
+     * valore piu alto di una scheda (a parita vince il primo nell'ordine
+     * dell'enum). Utile anche prima che l'investigatore esista, ad esempio per
+     * l'anteprima dello stile durante la creazione del personaggio.
+     *
+     * @param attributi scheda con un valore per ciascun {@link Attributo}
+     * @return l'attributo dominante
+     */
+    public static Attributo dominante(Map<Attributo, Integer> attributi) {
+        Validazioni.nonNullo(attributi, "attributi");
         Attributo dominante = Attributo.values()[0];
         for (Attributo a : Attributo.values()) {
             if (attributi.get(a) > attributi.get(dominante)) {
