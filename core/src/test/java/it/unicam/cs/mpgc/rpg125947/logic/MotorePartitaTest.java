@@ -2,20 +2,27 @@ package it.unicam.cs.mpgc.rpg125947.logic;
 
 import it.unicam.cs.mpgc.rpg125947.logic.fase.FaseEsplorazione;
 import it.unicam.cs.mpgc.rpg125947.logic.fase.FaseFinale;
+import it.unicam.cs.mpgc.rpg125947.model.Attributo;
 import it.unicam.cs.mpgc.rpg125947.model.Caso;
 import it.unicam.cs.mpgc.rpg125947.model.Hotspot;
 import it.unicam.cs.mpgc.rpg125947.model.Investigatore;
 import it.unicam.cs.mpgc.rpg125947.model.Partita;
 import it.unicam.cs.mpgc.rpg125947.model.Stanza;
 import it.unicam.cs.mpgc.rpg125947.model.accusa.EsitoAccusa;
+import it.unicam.cs.mpgc.rpg125947.model.dialogo.Dialogo;
+import it.unicam.cs.mpgc.rpg125947.model.dialogo.OpzioneDialogo;
 import it.unicam.cs.mpgc.rpg125947.model.dialogo.Testimonianza;
 import it.unicam.cs.mpgc.rpg125947.model.interfaces.RisolutoreProva;
+import it.unicam.cs.mpgc.rpg125947.model.personaggio.Personaggio;
 import it.unicam.cs.mpgc.rpg125947.persistence.xml.CaricatoreCasoXml;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -75,7 +82,30 @@ class MotorePartitaTest {
         assertFalse(esito.successo());
     }
 
+    @Test
+    void profiliDiversiPongonoDomandeDiverseMaInterrogabili() {
+        Personaggio guardia = caso.getStanzaIniziale().getPersonaggi().stream()
+                .filter(p -> p.getNome().equals("Tommaso Greco"))
+                .findFirst().orElseThrow();
+        Dialogo dialogo = guardia.avviaDialogo();
+
+        List<String> daOsservatore = domande(dialogo.opzioniPer(Attributo.OSSERVAZIONE));
+        List<String> daLogico = domande(dialogo.opzioniPer(Attributo.LOGICA));
+        assertNotEquals(daOsservatore, daLogico, "stili diversi vedono domande diverse");
+
+        // Una domanda dedicata allo stile e effettivamente interrogabile dal motore.
+        OpzioneDialogo dedicata = dialogo.opzioniPer(Attributo.LOGICA).stream()
+                .filter(o -> o.stileRichiesto().isPresent())
+                .findFirst().orElseThrow();
+        motore.interroga(dedicata);
+        assertTrue(partita.getTaccuino().getTestimonianzePerFonte().containsKey("Tommaso Greco"));
+    }
+
     // ===== helper di gioco =====
+
+    private List<String> domande(List<OpzioneDialogo> opzioni) {
+        return opzioni.stream().map(OpzioneDialogo::domanda).toList();
+    }
 
     private void ispeziona(String idStanza, String idHotspot) {
         Hotspot hotspot = caso.getStanza(idStanza).getHotspot().stream()
