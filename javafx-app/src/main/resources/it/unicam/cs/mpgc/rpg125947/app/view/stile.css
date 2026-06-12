@@ -447,12 +447,36 @@
   -fx-padding: 0;
 }
 
-/* Nasconde il menu a tendina di overflow delle schede (a destra). */
+/* Nasconde del tutto il menu a tendina di overflow delle schede (a destra). */
 .tab-pane .control-buttons-tab {
   -fx-min-width: 0;
   -fx-pref-width: 0;
   -fx-max-width: 0;
+  -fx-min-height: 0;
+  -fx-pref-height: 0;
+  -fx-max-height: 0;
   -fx-padding: 0;
+  -fx-opacity: 0;
+}
+
+.tab-pane .tab-down-button {
+  -fx-min-width: 0;
+  -fx-pref-width: 0;
+  -fx-max-width: 0;
+  -fx-padding: 0;
+  -fx-opacity: 0;
+}
+
+/* Area contenuto delle schede: fondo scuro, mai bianco. */
+.tab-pane .tab-content-area {
+  -fx-background-color: -superficie-bassa;
+}
+
+/* ScrollPane del taccuino: niente fondo bianco di default. */
+.taccuino-scroll,
+.taccuino-scroll .viewport {
+  -fx-background-color: -superficie-bassa;
+  -fx-background: -superficie-bassa;
 }
 
 .tab-pane .tab-header-area .tab {
