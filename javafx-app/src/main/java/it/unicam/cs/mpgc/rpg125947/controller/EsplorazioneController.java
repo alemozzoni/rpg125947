@@ -10,6 +10,7 @@ import it.unicam.cs.mpgc.rpg125947.model.Attributo;
 import it.unicam.cs.mpgc.rpg125947.model.AzioneGiocatore;
 import it.unicam.cs.mpgc.rpg125947.model.Coordinata;
 import it.unicam.cs.mpgc.rpg125947.model.Hotspot;
+import it.unicam.cs.mpgc.rpg125947.model.Investigatore;
 import it.unicam.cs.mpgc.rpg125947.model.Partita;
 import it.unicam.cs.mpgc.rpg125947.model.Stanza;
 import it.unicam.cs.mpgc.rpg125947.model.Uscita;
@@ -67,6 +68,7 @@ public final class EsplorazioneController {
     @FXML private BorderPane hud;
     @FXML private Label nomeStanza;
     @FXML private Label notifica;
+    @FXML private Label statoInvestigatore;
     @FXML private HBox usciteNord;
     @FXML private HBox usciteSud;
     @FXML private VBox usciteEst;
@@ -82,6 +84,14 @@ public final class EsplorazioneController {
         sfondo.fitWidthProperty().bind(radice.widthProperty());
         sfondo.fitHeightProperty().bind(radice.heightProperty());
         mostraStanza(partita().getStanzaCorrente());
+        aggiornaStato();
+    }
+
+    /** Aggiorna l'indicatore in basso a sinistra: livello e punti abilita disponibili. */
+    private void aggiornaStato() {
+        Investigatore inv = partita().getInvestigatore();
+        statoInvestigatore.setText(
+                "Livello " + inv.getLivello() + "   ·   Punti abilita: " + inv.getPuntiAbilita());
     }
 
     // ===== Rendering della stanza =====
@@ -298,6 +308,7 @@ public final class EsplorazioneController {
     private void notificaLivello() {
         int livello = partita().getInvestigatore().getLivello();
         notificaBreve("Livello " + livello + " raggiunto! Nuovi punti abilita da spendere nel Taccuino.");
+        aggiornaStato();
     }
 
     private void mostraMessaggio(String titolo, String testo) {
@@ -319,6 +330,8 @@ public final class EsplorazioneController {
     @FXML
     private void onTaccuino() {
         new FinestraTaccuino().mostra(finestra(), partita());
+        // Nel taccuino si possono spendere punti abilita: riallinea l'indicatore.
+        aggiornaStato();
     }
 
     @FXML
@@ -365,6 +378,7 @@ public final class EsplorazioneController {
         if (caricata.isPresent()) {
             motore().riprendi(caricata.get());
             mostraStanza(caricata.get().getStanzaCorrente());
+            aggiornaStato();
             notificaBreve(etichettaSlot(slot) + " caricato.");
         } else {
             notificaBreve("Nessun salvataggio in " + etichettaSlot(slot) + ".");

@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -44,7 +45,10 @@
         <bottom>
             <VBox alignment="CENTER" pickOnBounds="false">
                 <HBox fx:id="usciteSud" alignment="CENTER" spacing="8" styleClass="hud-uscite"/>
-                <HBox alignment="CENTER_RIGHT" spacing="10" styleClass="hud-comandi">
+                <HBox alignment="CENTER_LEFT" spacing="10" styleClass="hud-comandi">
+                    <!-- In basso a sinistra: livello ed esperienza/punti disponibili. -->
+                    <Label fx:id="statoInvestigatore" styleClass="hud-stato"/>
+                    <Region HBox.hgrow="ALWAYS"/>
                     <Button text="Taccuino" onAction="#onTaccuino" styleClass="bottone-hud"/>
                     <Button text="Salva" onAction="#onSalva" styleClass="bottone-hud"/>
                     <Button text="Carica" onAction="#onCarica" styleClass="bottone-hud"/>
