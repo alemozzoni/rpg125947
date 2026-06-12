@@ -23,6 +23,15 @@ L'AI è stata utilizzata come supporto in diverse fasi del lavoro:
 - Il codice prodotto è stato **compreso e verificato**: il progetto compila, supera la suite di test ed è stato provato end-to-end.
 - L'AI è stata usata come **supporto** alla scrittura e all'organizzazione del lavoro, **non come sostituto** della comprensione dei concetti del corso.
 
+* Utilizzato Claude per:
+
+- autocompletamento di metodi semplici, generazione di codice ripetitivo e supporto per codice più complesso.
+- consigli su come strutturare il codice e le classi.
+
+* Utilizzato Stitch per:
+
+- creazione di png per personaggi e stanze.
+
 ## Sintesi
 
 L'uso dell'AI ha accelerato l'implementazione e la stesura della documentazione, mantenendo però in capo allo studente le scelte progettuali, la verifica del funzionamento e la padronanza dei contenuti tecnici applicati nel progetto.

@@ -23,12 +23,3 @@ Il caso si risolve **ragionando con i concetti del corso**, intrecciati alla tra
 L'accusa ha successo **solo** indicando il colpevole corretto **e** presentando tutti gli indizi decisivi. La regola di vittoria è incapsulata in una _Strategy_ (`ValutatoreAccusa`) ed è quindi facilmente sostituibile.
 
 Scoprire questi indizi non è scontato: gli snodi chiave sono **prove di abilità** (vedi [Sistema di Ruolo](Sistema-di-Ruolo)) che mettono alla prova le caratteristiche dell'investigatore, anch'esse risolte da una _Strategy_ intercambiabile (`RisolutoreProva`).
-
-## Requisiti di consegna soddisfatti
-
-- ✅ Java 25, package `it.unicam.cs.mpgc.rpg125947`.
-- ✅ `./gradlew build` e `./gradlew run` sufficienti (Gradle Wrapper versionato).
-- ✅ Interfaccia **grafica** (JavaFX), non testuale.
-- ✅ **Persistenza** dei dati (salvataggio/caricamento partita) operativa.
-- ✅ README con descrizione, istruzioni e dichiarazione AI; Wiki di documentazione.
-- ✅ Architettura predisposta a future estensioni multi-dispositivo.
