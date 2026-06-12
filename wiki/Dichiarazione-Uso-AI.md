@@ -27,6 +27,7 @@ L'AI è stata utilizzata come supporto in diverse fasi del lavoro:
 
 - autocompletamento di metodi semplici, generazione di codice ripetitivo e supporto per codice più complesso.
 - consigli su come strutturare il codice e le classi.
+- aiuto nella gestione dei commit
 
 * Utilizzato Stitch per:
 
