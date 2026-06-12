@@ -76,7 +76,7 @@ Build **Gradle multi-progetto** che separa il dominio dalla presentazione (predi
 
 Tutto il codice è nel package `it.unicam.cs.mpgc.rpg125947`.
 
-La documentazione completa (funzionalità, responsabilità delle classi e interfacce, organizzazione dei dati e persistenza, meccanismi di estensione) è nella **[Wiki del repository](https://github.com/alemozzoni/RPG/wiki)**; le stesse pagine sono versionate nella cartella [`wiki/`](wiki/).
+La documentazione completa (funzionalità, responsabilità delle classi e interfacce, organizzazione dei dati e persistenza, meccanismi di estensione) è nella **[Wiki del repository](https://github.com/alemozzoni/rpg125947-rpg.wiki.git)**; le stesse pagine sono versionate nella cartella [`wiki/`](wiki/).
 
 ---
 
