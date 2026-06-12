@@ -443,7 +443,8 @@
 
 .punti-rimanenti {
   -fx-font-family: "Courier Prime", "Courier New", monospace;
-  -fx-text-fill: -neon;
+  /* Stesso colore del titolo del gioco. */
+  -fx-text-fill: -primario-chiaro;
   -fx-font-size: 14px;
 }
 
