@@ -51,8 +51,8 @@ public final class FinestraTaccuino {
         // Le schede si distribuiscono uniformemente su tutta la larghezza disponibile
         // (niente spazio vuoto a destra): larghezza fissa = larghezza barra / numero schede.
         int numSchede = schede.getTabs().size();
-        schede.tabMinWidthProperty().bind(schede.widthProperty().divide(numSchede).subtract(2));
-        schede.tabMaxWidthProperty().bind(schede.widthProperty().divide(numSchede).subtract(2));
+        schede.tabMinWidthProperty().bind(schede.widthProperty().divide(numSchede).subtract(6));
+        schede.tabMaxWidthProperty().bind(schede.widthProperty().divide(numSchede).subtract(6));
 
         Scene scene = new Scene(schede, 640, 500);
         URL css = RisorseGrafiche.foglioStile();
@@ -212,6 +212,8 @@ public final class FinestraTaccuino {
     private ScrollPane scorrevole(VBox contenuto) {
         ScrollPane scroll = new ScrollPane(contenuto);
         scroll.setFitToWidth(true);
+        scroll.setFitToHeight(true); // il contenuto scuro riempie il viewport: niente fondo bianco
+        scroll.getStyleClass().add("taccuino-scroll");
         return scroll;
     }
 }
