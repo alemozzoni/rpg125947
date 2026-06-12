@@ -52,6 +52,14 @@ cd rpg125947
 
 - **Scheda personaggio**: quattro attributi (Osservazione, Intuito, Eloquenza, Logica) scelti in creazione distribuendo un pool di punti.
 - **Stile investigativo**: l'attributo dominante (quello su cui hai messo più punti) **ramifica i dialoghi**. Ogni interlocutore offre domande _universali_ (uguali per tutti, incluse quelle decisive) e domande _dedicate_ a uno specifico stile, con risposte caratterizzate. Le prove decisive restano raggiungibili da qualunque profilo: la **soluzione è unica**, il percorso narrativo no. Lo stile è derivato dagli attributi, quindi evolve anche salendo di livello e spendendo punti nel taccuino.
+
+  | Stile dominante  | Taglio degli interrogatori                                               |
+  | ---------------- | ------------------------------------------------------------------------ |
+  | **Osservazione** | nota dettagli fisici e incongruenze (oggetti mancanti, registri, calici) |
+  | **Intuito**      | fiuta disagio e moventi, punta dritto a chi ha più da perdere            |
+  | **Eloquenza**    | mette a proprio agio l'interlocutore e ne ottiene confidenze             |
+  | **Logica**       | ricostruisce orari, alibi e catene di prova in modo metodico             |
+
 - **Prove di abilità** (_skill check_): ispezioni e interrogatori chiave si risolvono con un tiro **d20 + attributo ≥ difficoltà**. La logica è una _Strategy_ (`RisolutoreProva`) iniettabile, quindi i test la rendono deterministica.
 - **Progressione**: raccogliere indizi accredita esperienza; al passaggio di livello si guadagnano punti abilità da spendere sugli attributi. Livello, esperienza e attributi sono **persistiti** nel salvataggio.
 
