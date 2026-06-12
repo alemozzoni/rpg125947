@@ -211,6 +211,8 @@
 }
 
 /* ===== Sprite dei personaggi ===== */
+/* L'hover usa il sepia di -primario (rgba 230,193,138) per restare coerente con
+   la palette low-key, evitando l'alone giallo neon riservato agli indizi. */
 
 .sprite-personaggio {
   -fx-padding: 4;
