@@ -109,9 +109,10 @@
   -fx-prompt-text-fill: derive(-primario-chiaro, -35%);
 }
 
-/* Il bordo arrotondato si accende di giallo neon quando il campo e attivo. */
+/* Quando il campo e attivo il bordo si accende e un alone sepia tenue lo stacca. */
 .campo-nome:focused {
-  -fx-border-color: -neon;
+  -fx-border-color: -primario-chiaro;
+  -fx-effect: dropshadow(gaussian, rgba(230, 193, 138, 0.35), 16, 0.2, 0, 0);
 }
 
 .messaggio-errore {
@@ -210,6 +211,8 @@
 }
 
 /* ===== Sprite dei personaggi ===== */
+/* L'hover usa il sepia di -primario (rgba 230,193,138) per restare coerente con
+   la palette low-key, evitando l'alone giallo neon riservato agli indizi. */
 
 .sprite-personaggio {
   -fx-padding: 4;

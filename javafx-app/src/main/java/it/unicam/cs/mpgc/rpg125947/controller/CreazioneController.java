@@ -103,23 +103,9 @@ public final class CreazioneController {
     private void aggiornaPunti() {
         valori.forEach((attributo, valore) -> valoreLabel.get(attributo).setText(String.valueOf(valore)));
         puntiRimanenti.setText("Punti da distribuire: " + puntiResidui);
-        stileScelto.setText("Stile investigativo: " + stileDominante().etichetta()
+        // Stesso criterio del dominio: niente logica duplicata.
+        stileScelto.setText("Stile investigativo: " + Investigatore.dominante(valori).etichetta()
                 + " — sblocchera domande e risposte dedicate nei dialoghi.");
-    }
-
-    /**
-     * L'attributo con piu punti tra quelli scelti finora (a parita vince il primo
-     * nell'ordine dell'enum): anticipa lo stile investigativo del personaggio,
-     * coerente con {@link Investigatore#attributoDominante()}.
-     */
-    private Attributo stileDominante() {
-        Attributo dominante = Attributo.values()[0];
-        for (Attributo a : Attributo.values()) {
-            if (valori.get(a) > valori.get(dominante)) {
-                dominante = a;
-            }
-        }
-        return dominante;
     }
 
     @FXML

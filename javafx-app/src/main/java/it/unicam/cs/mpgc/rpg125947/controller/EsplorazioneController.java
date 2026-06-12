@@ -205,10 +205,14 @@ public final class EsplorazioneController {
         Attributo stile = partita().getInvestigatore().attributoDominante();
         VBox domande = new VBox(8);
         for (OpzioneDialogo opzione : dialogo.opzioniPer(stile)) {
-            // Le domande che sono una prova di abilita mostrano l'attributo richiesto.
+            // Le domande che sono una prova di abilita mostrano l'attributo richiesto;
+            // quelle dedicate allo stile sono evidenziate con un contrassegno.
             String etichetta = opzione.richiedeProva()
                     ? "🎲 [" + opzione.attributoRichiesto().orElseThrow().etichetta() + "] " + opzione.domanda()
                     : opzione.domanda();
+            if (opzione.stileRichiesto().isPresent()) {
+                etichetta = "✦ " + etichetta;
+            }
             domande.getChildren().add(bottone(etichetta, "domanda-dialogo",
                     () -> rispondi(opzione, battuta, feedback)));
         }

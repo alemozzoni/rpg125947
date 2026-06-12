@@ -88,6 +88,17 @@ class InvestigatoreTest {
     }
 
     @Test
+    void ilMetodoStaticoDominanteCoincideConQuelloDiIstanza() {
+        Map<Attributo, Integer> scheda = new EnumMap<>(Attributo.class);
+        scheda.put(Attributo.OSSERVAZIONE, 2);
+        scheda.put(Attributo.INTUITO, 6);
+        scheda.put(Attributo.ELOQUENZA, 3);
+        scheda.put(Attributo.LOGICA, 4);
+        assertEquals(Attributo.INTUITO, Investigatore.dominante(scheda));
+        assertEquals(new Investigatore("X", scheda).attributoDominante(), Investigatore.dominante(scheda));
+    }
+
+    @Test
     void loStileRifletteLaSpesaDeiPunti() {
         Investigatore inv = conAttributi(3, 3, 3, 3);
         inv.aggiungiEsperienza(30);

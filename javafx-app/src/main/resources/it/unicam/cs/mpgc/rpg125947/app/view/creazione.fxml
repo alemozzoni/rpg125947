@@ -11,8 +11,9 @@
   Schermata iniziale "Obsidian Casefile": lo sfondo noir (museo di notte) e
   impostato via CSS sulla classe .schermata-creazione. Sopra, una vignette
   scurisce i bordi per concentrare lo sguardo al centro (Chiaroscuro); titolo,
-  campo nome, scheda delle caratteristiche e bottone appoggiano direttamente
-  sull'ambiente, senza riquadro.
+  campo nome (riquadro arrotondato nel colore del titolo), scheda delle
+  caratteristiche, anteprima dello stile investigativo e bottone appoggiano
+  direttamente sull'ambiente.
 -->
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"

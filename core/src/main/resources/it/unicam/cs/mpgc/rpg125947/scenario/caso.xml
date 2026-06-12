@@ -149,6 +149,9 @@
                         <opzione domanda="Sembri spaventata. Di chi hai timore?" stile="INTUITO">
                             <testimonianza>Non sono abituata a queste cose... e la signora Lovato mi mette soggezione. Stasera era diversa, tesa, non la solita ospite sorridente.</testimonianza>
                         </opzione>
+                        <opzione domanda="Mi dai un orario preciso dei movimenti in caffetteria?" stile="LOGICA">
+                            <testimonianza>Dovrei ricontrollare il foglio... gli orari sono pasticciati e pieni di correzioni. Non me la sento di darle numeri certi senza riguardarlo con calma.</testimonianza>
+                        </opzione>
                     </dialogo>
                 </personaggio>
             </personaggi>

@@ -73,6 +73,17 @@ class CaricatoreCasoXmlTest {
     }
 
     @Test
+    void ogniPersonaggioOffreDomandeAQualunqueStile() {
+        Caso caso = new CaricatoreCasoXml().carica();
+        caso.getStanze().forEach(stanza -> stanza.getPersonaggi().forEach(p -> {
+            for (Attributo stile : Attributo.values()) {
+                assertTrue(!p.avviaDialogo().opzioniPer(stile).isEmpty(),
+                        p.getNome() + " non ha domande per lo stile " + stile);
+            }
+        }));
+    }
+
+    @Test
     void unoScenarioNonValidoVieneRifiutato() {
         CaricatoreCasoXml caricatore = new CaricatoreCasoXml(
                 "/it/unicam/cs/mpgc/rpg125947/scenario/caso_invalido.xml",
