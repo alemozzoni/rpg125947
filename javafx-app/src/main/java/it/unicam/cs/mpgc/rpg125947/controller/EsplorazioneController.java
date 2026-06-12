@@ -35,6 +35,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Window;
 import javafx.util.Duration;
 
@@ -426,6 +427,7 @@ public final class EsplorazioneController {
         s.getStyleClass().add("testo-ispezione");
         s.setWrapText(true);
         s.setMaxWidth(520);
+        s.setTextAlignment(TextAlignment.CENTER);
         VBox pannello = new VBox(12, t, s);
         pannello.getStyleClass().add("pannello-ispezione");
         pannello.setMaxWidth(560);
