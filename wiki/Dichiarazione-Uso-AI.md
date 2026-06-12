@@ -5,6 +5,7 @@ In conformità con quanto richiesto dalla consegna, si dichiara in modo traspare
 ## Strumento utilizzato
 
 - **Claude (Anthropic)**, impiegato come assistente di sviluppo (pair-programming).
+- **Stitch**, impiegato per la creazione di png e sprite.
 
 ## Attività svolte con l'AI
 
@@ -13,13 +14,13 @@ L'AI è stata utilizzata come supporto in diverse fasi del lavoro:
 - Scaffolding e configurazione del progetto.
 - Aiuto nella scrittura del codice del dominio, della logica di gioco e del front-end.
 - Implementazione della persistenza dei dati.
-- Redazione dei contenuti del caso e generazione degli asset grafici.
+- Assistenza nella redazione dei contenuti del caso e generazione degli asset grafici.
 - Scrittura dei test.
 
 ## Livello di intervento personale e comprensione
 
 - Le **decisioni di progettazione** (architettura, pattern, scelta dello stack, trama e meccaniche) sono state stabilite e validate consapevolmente; l'AI ha aiutato a convertire tali decisioni in codice.
-- Il codice prodotto è stato **compreso e verificato**, non accettato acriticamente: il progetto compila, supera la suite di test ed è stato provato end-to-end.
+- Il codice prodotto è stato **compreso e verificato**: il progetto compila, supera la suite di test ed è stato provato end-to-end.
 - L'AI è stata usata come **supporto** alla scrittura e all'organizzazione del lavoro, **non come sostituto** della comprensione dei concetti del corso.
 
 ## Sintesi
